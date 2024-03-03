@@ -1,20 +1,69 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CourseModel from "../../../models/CourseModel";
+import ImageModel from "../../../models/ImageModel";
+import { getAllImages } from "../../../api/ImageAPI";
 
 interface CoursePropsInterface {
     course: CourseModel;
 }
 
 const CourseProps: React.FC<CoursePropsInterface> = ( props ) => {
+
+    const course_id = props.course.Id;
+
+    const [images, setImages] = useState<ImageModel[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        getAllImages(course_id).then(
+            (data) => {
+                setImages(data);
+                setLoading(false);
+            }
+        ).catch(
+            (error) => {
+                setLoading(false);
+                setError(error.message);
+            }
+        );
+    }, [] //only call 1 time
+    )
+
+    if (loading) {
+        return (
+            <div className="container">
+                <div className="row mt-4">
+                    <div className="col-12">
+                        <h2>Loading...</h2>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="container">
+                <div className="row mt-4">
+                    <div className="col-12">
+                        <h2>Error: {error}</h2>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="col-md-3 mt-2">
             <div className="card">
-                <img
-                    // src={props.course.imageUrl}
+                {images[0] && images[0].ImageData && <img
+                    src={`${images[0].ImageData}`}
                     className="card-img-top"
                     alt={props.course.CourseName}
                     style={{ height: '200px' }}
                 />
+                }
                 <div className="card-body">
                     <h5 className="card-title">{props.course.CourseName}</h5>
                     <p className="card-text">{props.course.Description}</p>
