@@ -15,11 +15,11 @@ async function getCourse(endpoint: string): Promise<CourseModel[]> {
 
     for(const key in data) {
         result.push({
-        Id: data[key].id,
-        CourseName: data[key].courseName,
-        Description: data[key].description,
-        Price: data[key].price,
-        Amount: data[key].amount,
+            courseId: data[key].courseId,
+            course_Name: data[key].course_Name,
+            description: data[key].description,
+            price: data[key].price,
+            amount: data[key].amount
         });
     }
 
@@ -30,7 +30,16 @@ export async function getAllCourses(): Promise<CourseModel[]> {
     const result: CourseModel[] = [];
 
     //Detect endpoint
-    const endpoint:string = 'http://localhost:8888/course?sort=id,desc&page=0&size=3';
+    const endpoint:string = 'http://localhost:8888/course?sort=courseId,desc';
+
+    return getCourse(endpoint);
+}
+
+export async function getTop3Courses(): Promise<CourseModel[]> {
+    const result: CourseModel[] = [];
+
+    //Detect endpoint
+    const endpoint:string = 'http://localhost:8888/course?sort=courseId,desc&page=0&size=3';
 
     return getCourse(endpoint);
 }

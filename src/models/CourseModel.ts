@@ -1,16 +1,16 @@
 class CourseModel {
-    Id: number;
-    CourseName?: string;
-    Description?: string;
-    Price?: number;
-    Amount?: number;
+    courseId: number;
+    course_Name?: string;
+    description?: string;
+    price?: number;
+    amount?: number;
 
-    constructor(Id: number, CourseName?: string, Description?: string, Price?: number, Amount?: number) {
-        this.Id = Id;
-        this.CourseName = CourseName;
-        this.Description = Description;
-        this.Price = Price;
-        this.Amount = Amount;
+    constructor(courseId: number, course_Name?: string, description?: string, price?: number, amount?: number) {
+        this.courseId = courseId;
+        this.course_Name = course_Name;
+        this.description = description;
+        this.price = price;
+        this.amount = amount;
     }
 }
 export default CourseModel;

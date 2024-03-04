@@ -1,0 +1,37 @@
+version: '3'
+services:
+# React
+  client:
+    build: .
+    image: frontend-app
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/app
+    environment:
+      - TZ=Asia/Ho_Chi_Minh
+    container_name: swd391-client
+    restart: always
+    command: npm start
+    networks:
+      - default
+
+  # Nginx
+  nginx:
+    build: ./nginx.conf
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: swd391-nginx
+    restart: always
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    volumes:
+      - ./nginx.conf/data:/data
+      - ./nginx.conf/letsencrypt:/etc/letsencrypt
+    depends_on:
+      - client
+    networks:
+      - default
+networks:
+  default:

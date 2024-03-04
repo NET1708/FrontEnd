@@ -52,7 +52,7 @@ const ListProduct: React.FC = () => {
             <div className="row mt-4">
                 {
                     listProduct.map((course) => (
-                        <CourseProps key={course.Id} course={course} />
+                        <CourseProps key={course.courseId} course={course} />
                         )
                     )
                 }

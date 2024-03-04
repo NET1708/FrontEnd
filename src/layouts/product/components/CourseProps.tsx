@@ -9,7 +9,7 @@ interface CoursePropsInterface {
 
 const CourseProps: React.FC<CoursePropsInterface> = ( props ) => {
 
-    const course_id = props.course.Id;
+    const course_id = props.course.courseId;
 
     const [images, setImages] = useState<ImageModel[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -57,19 +57,19 @@ const CourseProps: React.FC<CoursePropsInterface> = ( props ) => {
     return (
         <div className="col-md-3 mt-2">
             <div className="card">
-                {images[0] && images[0].ImageData && <img
-                    src={`${images[0].ImageData}`}
+                {images[0] && images[0].imageData && <img
+                    src={`${images[0].imageData}`}
                     className="card-img-top"
-                    alt={props.course.CourseName}
+                    alt={props.course.course_Name}
                     style={{ height: '200px' }}
                 />
                 }
                 <div className="card-body">
-                    <h5 className="card-title">{props.course.CourseName}</h5>
-                    <p className="card-text">{props.course.Description}</p>
+                    <h5 className="card-title">{props.course.course_Name}</h5>
+                    <p className="card-text">{props.course.description}</p>
                     <div className="price">
                         <span className="price">
-                            <strong>{props.course.Price}</strong>
+                            <strong>{props.course.price}</strong>
                         </span>
                     </div>
                     <div className="row mt-2" role="group">

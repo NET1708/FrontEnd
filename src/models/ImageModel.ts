@@ -1,16 +1,16 @@
 class ImageModel {
-    Id: number;
-    Name?: string;
+    imageId: number;
+    image_Name?: string;
     isIcon?: boolean;
-    URL?: string;
-    ImageData?: string;
-    
-    constructor(Id: number, Name?: string, isIcon?: boolean, URL?: string, ImageData?: string) {
-        this.Id = Id;
-        this.Name = Name;
+    url?: string;
+    imageData?: string;
+
+    constructor(imageId: number, image_Name?: string, isIcon?: boolean, url?: string, imageData?: string) {
+        this.imageId = imageId;
+        this.image_Name = image_Name;
         this.isIcon = isIcon;
-        this.URL = URL;
-        this.ImageData = ImageData;
+        this.url = url;
+        this.imageData = imageData;
     }
 }
 export default ImageModel;

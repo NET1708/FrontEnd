@@ -2,11 +2,33 @@ import React from "react";
 import ImageModel from "../models/ImageModel";
 import { my_request } from "./Request";
 
-export async function getAllImages(Id: number): Promise<ImageModel[]> {
+async function getImage(imageId: number,endpoint: string): Promise<ImageModel[]> {
+    const result: ImageModel[] = [];
+
+    //Get request
+    const response = await my_request(endpoint);
+
+    //Get data
+    const data = response._embedded.images;
+
+    for(const key in data) {
+        result.push({
+            imageId: data[key].imageId,
+            image_Name: data[key].image_Name,
+            isIcon: data[key].isIcon,
+            url: data[key].url,
+            imageData: data[key].imageData
+        });
+    }
+
+    return result;
+}
+
+export async function getAllImages(imageId: number): Promise<ImageModel[]> {
     const result: ImageModel[] = [];
 
     //Detect endpoint
-    const endpoint:string = `http://localhost:8888/course/${Id}/Image`;
+    const endpoint:string = `http://localhost:8888/course/${imageId}/images`;
 
     //Get request
     const response = await my_request(endpoint);
@@ -16,11 +38,11 @@ export async function getAllImages(Id: number): Promise<ImageModel[]> {
 
     for(const key in data) {
         result.push({
-            Id: data[key].id,
-            Name: data[key].name,
+            imageId: data[key].imageId,
+            image_Name: data[key].image_Name,
             isIcon: data[key].isIcon,
-            URL: data[key].url,
-            ImageData: data[key].imageData
+            url: data[key].url,
+            imageData: data[key].imageData
         });
     }
     return result;
