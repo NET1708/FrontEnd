@@ -1,12 +1,11 @@
 import React from "react";
 import CourseModel from "../models/CourseModel";
 import { my_request } from "../api/Request";
+import { get } from "http";
 
-export async function getAllCourses(): Promise<CourseModel[]> {
+async function getCourse(endpoint: string): Promise<CourseModel[]> {
+
     const result: CourseModel[] = [];
-
-    //Detect endpoint
-    const endpoint:string = "http://localhost:8888/course";
 
     //Get request
     const response = await my_request(endpoint);
@@ -25,4 +24,13 @@ export async function getAllCourses(): Promise<CourseModel[]> {
     }
 
     return result;
+}
+
+export async function getAllCourses(): Promise<CourseModel[]> {
+    const result: CourseModel[] = [];
+
+    //Detect endpoint
+    const endpoint:string = 'http://localhost:8888/course?sort=id,desc&page=0&size=3';
+
+    return getCourse(endpoint);
 }
