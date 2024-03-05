@@ -28,7 +28,7 @@ export async function getAllImages(imageId: number): Promise<ImageModel[]> {
     const result: ImageModel[] = [];
 
     //Detect endpoint
-    const endpoint:string = `http://localhost:8888/course/${imageId}/images`;
+    const endpoint:string = `https://api.ani-testlab.edu.vn/course/${imageId}/images`;
 
     //Get request
     const response = await my_request(endpoint);

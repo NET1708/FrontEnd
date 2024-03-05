@@ -30,7 +30,7 @@ export async function getAllCourses(): Promise<CourseModel[]> {
     const result: CourseModel[] = [];
 
     //Detect endpoint
-    const endpoint:string = 'http://localhost:8888/course?sort=courseId,desc';
+    const endpoint:string = 'https://api.ani-testlab.edu.vn/course?sort=courseId,desc';
 
     return getCourse(endpoint);
 }
@@ -39,7 +39,7 @@ export async function getTop3Courses(): Promise<CourseModel[]> {
     const result: CourseModel[] = [];
 
     //Detect endpoint
-    const endpoint:string = 'http://localhost:8888/course?sort=courseId,desc&page=0&size=3';
+    const endpoint:string = 'https://api.ani-testlab.edu.vn/course?sort=courseId,desc&page=0&size=3';
 
     return getCourse(endpoint);
 }
