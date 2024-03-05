@@ -14,7 +14,7 @@ services:
     restart: always
     command: npm start
     networks:
-      - default
+      - swd391-network
 
   # Nginx
   nginx:
@@ -32,6 +32,7 @@ services:
     depends_on:
       - client
     networks:
-      - default
+      - swd391-network
 networks:
-  default:
+  swd391-network:
+    driver: bridge
