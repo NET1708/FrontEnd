@@ -66,3 +66,37 @@ export async function searchCourseByName(key: string, currentPage: number, categ
 
     return getCourse(endpoint);
 }
+
+export async function getCourseById(courseId: number): Promise<CourseModel|null> {
+
+    //Detect endpoint
+    const endpoint:string = `http://localhost:8888/course/${courseId}`;
+
+    try {
+
+        const response = await fetch(endpoint);
+
+        if(!response.ok) {
+            throw new Error(`Lỗi khi lấy dữ liệu từ ${endpoint}`);
+        }
+
+        //Get data
+        const data = await response.json();
+
+        if (data) {
+            return {
+                courseId: data.courseId,
+                courseName: data.courseName,
+                description: data.description,
+                price: data.price,
+                amount: data.amount
+            }
+        } else {
+            throw new Error(`Không tìm thấy khóa học có id = ${courseId}`);
+        }
+    }
+    catch (error) {
+        console.log(error);
+        return null;
+    }
+}
