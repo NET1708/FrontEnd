@@ -52,12 +52,16 @@ export async function getTop3Courses(): Promise<ResultInterface> {
     return getCourse(endpoint);
 }
 
-export async function searchCourseByName(key: string, currentPage: number): Promise<ResultInterface> {
+export async function searchCourseByName(key: string, currentPage: number, categoryId: number): Promise<ResultInterface> {
 
     //Detect endpoint
     let endpoint:string = `http://localhost:8888/course?sort=courseId,desc&size=8&page=${currentPage}`;
-    if (key !== "") {
+    if (key !== '' && categoryId == 0) {
         endpoint = `http://localhost:8888/course/search/findByCourseNameContaining?courseName=${key}&sort=courseId,desc&size=8&page=${currentPage}`;
+    } else if (key === '' && categoryId > 0) {
+        endpoint = `http://localhost:8888/course/search/findByCategories_categoryId?sort=courseId,desc&size=8&page=${currentPage}&categoryId=${categoryId}`;
+    } else if (key !== '' && categoryId > 0) {
+        endpoint = `http://localhost:8888/course/search/findByCourseNameContainingAndCategories_categoryId?courseName=${key}&sort=courseId,desc&size=8&page=${currentPage}&categoryId=${categoryId}`;
     }
 
     return getCourse(endpoint);

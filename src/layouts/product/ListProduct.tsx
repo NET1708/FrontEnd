@@ -7,9 +7,10 @@ import { SyncLoader } from "react-spinners";
 
 interface ListProductProps {
     searchKey: string;
+    categoryId: number;
 }
 
-function ListProduct({searchKey}: ListProductProps) {
+function ListProduct({searchKey, categoryId}: ListProductProps) {
 
     const [listProduct, setListProduct] = useState<CourseModel[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -25,7 +26,7 @@ function ListProduct({searchKey}: ListProductProps) {
     };
 
     useEffect(() => {
-        if (searchKey === "") {
+        if (searchKey === "" && categoryId === 0) {
             getAllCourses(currentPage-1).then(
                 (data) => {
                     setListProduct(data.result);
@@ -39,7 +40,7 @@ function ListProduct({searchKey}: ListProductProps) {
                 }
             );
         } else {
-            searchCourseByName(searchKey, currentPage-1).then(
+            searchCourseByName(searchKey, currentPage-1, categoryId).then(
                 (data) => {
                     setListProduct(data.result);
                     setTotalPages(data.totalPage);
@@ -52,7 +53,7 @@ function ListProduct({searchKey}: ListProductProps) {
                 }
             );
         }
-    }, [currentPage, searchKey]);
+    }, [currentPage, searchKey, categoryId]);
 
     const paginate = (currentPage: number) => setCurrentPage(currentPage);
 
