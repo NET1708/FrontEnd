@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import CourseModel from "../../models/CourseModel";
 import CourseProps from "./components/CourseProps";
-import { getAllCourses } from "../../api/CourseAPI";
+import { getAllCourses, searchCourseByName } from "../../api/CourseAPI";
 import { Pagination } from "../utils/Pagination";
 import { SyncLoader } from "react-spinners";
 
+interface ListProductProps {
+    searchKey: string;
+}
 
-const ListProduct: React.FC = () => {
-    
+function ListProduct({searchKey}: ListProductProps) {
+
     const [listProduct, setListProduct] = useState<CourseModel[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState(null);
@@ -22,19 +25,34 @@ const ListProduct: React.FC = () => {
     };
 
     useEffect(() => {
-        getAllCourses(currentPage-1).then(
-            (data) => {
-                setListProduct(data.result);
-                setTotalPages(data.totalPage);
-                setLoading(false);
-            }
-        ).catch(
-            (error) => {
-                setLoading(false);
-                setError(error);
-            }
-        );
-    }, [currentPage]);
+        if (searchKey === "") {
+            getAllCourses(currentPage-1).then(
+                (data) => {
+                    setListProduct(data.result);
+                    setTotalPages(data.totalPage);
+                    setLoading(false);
+                }
+            ).catch(
+                (error) => {
+                    setLoading(false);
+                    setError(error);
+                }
+            );
+        } else {
+            searchCourseByName(searchKey, currentPage-1).then(
+                (data) => {
+                    setListProduct(data.result);
+                    setTotalPages(data.totalPage);
+                    setLoading(false);
+                }
+            ).catch(
+                (error) => {
+                    setLoading(false);
+                    setError(error);
+                }
+            );
+        }
+    }, [currentPage, searchKey]);
 
     const paginate = (currentPage: number) => setCurrentPage(currentPage);
 
@@ -50,6 +68,23 @@ const ListProduct: React.FC = () => {
                 <div className="row mt-4">
                     <div className="col-12">
                         <h2>Error: {error}</h2>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    if(listProduct.length === 0) {
+        return (
+            <div className="container">
+                <div className="row mt-4">
+                    <div className="col-12">
+                        <h2 style={{
+                            color: 'red',
+                            textAlign: 'center',
+                            fontSize: '30px',
+                            fontWeight: 'bold'
+                        }}>No course found!</h2>
                     </div>
                 </div>
             </div>

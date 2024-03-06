@@ -15,7 +15,7 @@ async function getImage(endpoint: string): Promise<ImageModel[]> {
     for(const key in data) {
         result.push({
             imageId: data[key].imageId,
-            image_Name: data[key].image_Name,
+            imageName: data[key].imageName,
             isIcon: data[key].isIcon,
             url: data[key].url,
             imageData: data[key].imageData

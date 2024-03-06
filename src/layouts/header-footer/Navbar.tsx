@@ -1,6 +1,29 @@
-import React from "react";
+import React, { ChangeEvent, useState } from "react";
 
-function Navbar(){
+interface NavbarInterface {
+    searchKey: string;
+    setKey: (key: string) => void;
+}
+
+function Navbar({searchKey, setKey}: NavbarInterface){
+
+  let [keyword, setKeyword] = useState('');
+
+  const searchingCourse = (e: ChangeEvent<HTMLInputElement>) => { //khi người dùng nhập vào ô tìm kiếm
+    setKeyword(e.target.value);
+  }
+
+  //xử lý khi người dùng ấn enter trong ô tìm kiếm
+  const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      setKey(keyword);
+    }
+  }
+
+  const handlesearch = () => { //khi người dùng nhấn nút tìm kiếm
+    setKey(keyword);
+  }
+
     return(
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
@@ -41,10 +64,10 @@ function Navbar(){
           </div>
   
           {/* Tìm kiếm */}
-          <form className="d-flex">
-            <input className="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Search" />
-            <button className="btn btn-outline-success" type="submit">Search</button>
-          </form>
+          <div className="d-flex">
+            <input className="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Search" onChange={searchingCourse} value={keyword} onKeyPress={handleEnter}/>
+            <button className="btn btn-outline-success" type="button" onClick={handlesearch}>Search</button>
+          </div>
   
           {/* Biểu tượng giỏ hàng */}
           <ul className="navbar-nav me-1">

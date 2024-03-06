@@ -68,12 +68,12 @@ const CourseProps: React.FC<CoursePropsInterface> = ( props ) => {
                 {images[0] && images[0].imageData && <img
                     src={`${images[0].imageData}`}
                     className="card-img-top"
-                    alt={props.course.course_Name}
+                    alt={props.course.courseName}
                     style={{ height: '200px' }}
                 />
                 }
                 <div className="card-body">
-                    <h5 className="card-title">{props.course.course_Name}</h5>
+                    <h5 className="card-title">{props.course.courseName}</h5>
                     <p className="card-text">{props.course.description}</p>
                     <div className="price">
                         <span className="price">

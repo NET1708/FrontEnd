@@ -69,7 +69,7 @@ const CarouselItem: React.FC<CarouselItemInterface> = (props) => {
         />
       </div>
       <div className="col-7">
-        <h5>{props.course.course_Name}</h5>
+        <h5>{props.course.courseName}</h5>
         <p>{props.course.description}</p>
       </div>
     </div>

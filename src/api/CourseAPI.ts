@@ -26,7 +26,7 @@ async function getCourse(endpoint: string): Promise<ResultInterface> {
     for(const key in data) {
         result.push({
             courseId: data[key].courseId,
-            course_Name: data[key].course_Name,
+            courseName: data[key].courseName,
             description: data[key].description,
             price: data[key].price,
             amount: data[key].amount
@@ -48,6 +48,17 @@ export async function getTop3Courses(): Promise<ResultInterface> {
 
     //Detect endpoint
     const endpoint:string = 'http://localhost:8888/course?sort=courseId,desc&page=0&size=3';
+
+    return getCourse(endpoint);
+}
+
+export async function searchCourseByName(key: string, currentPage: number): Promise<ResultInterface> {
+
+    //Detect endpoint
+    let endpoint:string = `http://localhost:8888/course?sort=courseId,desc&size=8&page=${currentPage}`;
+    if (key !== "") {
+        endpoint = `http://localhost:8888/course/search/findByCourseNameContaining?courseName=${key}&sort=courseId,desc&size=8&page=${currentPage}`;
+    }
 
     return getCourse(endpoint);
 }
