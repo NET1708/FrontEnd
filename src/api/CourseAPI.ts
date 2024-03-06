@@ -3,7 +3,13 @@ import CourseModel from "../models/CourseModel";
 import { my_request } from "../api/Request";
 import { get } from "http";
 
-async function getCourse(endpoint: string): Promise<CourseModel[]> {
+interface ResultInterface {
+    result: CourseModel[];
+    totalPage: number;
+    totalCoursePerPage: number;
+}
+
+async function getCourse(endpoint: string): Promise<ResultInterface> {
 
     const result: CourseModel[] = [];
 
@@ -12,6 +18,10 @@ async function getCourse(endpoint: string): Promise<CourseModel[]> {
 
     //Get data
     const data = response._embedded.courses;
+
+    //Get total page
+    const totalPage:number = response.page.totalPages;
+    const totalCoursePerPage:number = response.page.totalElements;
 
     for(const key in data) {
         result.push({
@@ -23,20 +33,18 @@ async function getCourse(endpoint: string): Promise<CourseModel[]> {
         });
     }
 
-    return result;
+    return {result: result, totalPage: totalPage, totalCoursePerPage: totalCoursePerPage};
 }
 
-export async function getAllCourses(): Promise<CourseModel[]> {
-    const result: CourseModel[] = [];
+export async function getAllCourses(currentPage: number): Promise<ResultInterface> {
 
     //Detect endpoint
-    const endpoint:string = 'http://localhost:8888/course?sort=courseId,desc';
+    const endpoint:string = `http://localhost:8888/course?sort=courseId,desc&size=8&page=${currentPage}`;
 
     return getCourse(endpoint);
 }
 
-export async function getTop3Courses(): Promise<CourseModel[]> {
-    const result: CourseModel[] = [];
+export async function getTop3Courses(): Promise<ResultInterface> {
 
     //Detect endpoint
     const endpoint:string = 'http://localhost:8888/course?sort=courseId,desc&page=0&size=3';
