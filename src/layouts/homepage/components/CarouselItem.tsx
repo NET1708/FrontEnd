@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import CourseModel from "../../../models/CourseModel";
 import ImageModel from "../../../models/ImageModel";
 import { getAllImages, getFirstImages } from "../../../api/ImageAPI";
+import { SyncLoader } from "react-spinners";
 
 interface CarouselItemInterface {
   course: CourseModel;
@@ -13,6 +14,12 @@ const CarouselItem: React.FC<CarouselItemInterface> = (props) => {
   const [images, setImages] = useState<ImageModel[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState(null);
+  const carouselcss = {
+    // center screen
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    };
 
   useEffect(
     () => {
@@ -31,13 +38,7 @@ const CarouselItem: React.FC<CarouselItemInterface> = (props) => {
 
   if (loading) {
     return (
-      <div className="container">
-        <div className="row mt-4">
-          <div className="col-12">
-            <h2>Loading...</h2>
-          </div>
-        </div>
-      </div>
+        <SyncLoader className="carouselcss" color="#36d7b7" />
     );
   }
 

@@ -2,12 +2,19 @@ import React, { useEffect } from "react";
 import { getTop3Courses } from "../../../api/CourseAPI";
 import CourseModel from "../../../models/CourseModel";
 import CarouselItem from "./CarouselItem";
+import { SyncLoader } from "react-spinners";
 
 const Carousel: React.FC = () => {
 
     const [top3Courses, setTop3Courses] = React.useState<CourseModel[]>([]);
     const [loading, setLoading] = React.useState(true);
     const [error, setError] = React.useState(null);
+    const carouselcss = {
+        // center screen
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+    };
 
     useEffect(() => {
         getTop3Courses().then(
@@ -25,13 +32,7 @@ const Carousel: React.FC = () => {
 
         if (loading) {
             return (
-                <div className="container">
-                    <div className="row mt-4">
-                        <div className="col-12">
-                            <h2>Loading...</h2>
-                        </div>
-                    </div>
-                </div>
+                <SyncLoader className="carouselcss" color="#36d7b7" />
             );
         }
     

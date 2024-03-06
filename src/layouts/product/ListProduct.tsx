@@ -3,6 +3,7 @@ import CourseModel from "../../models/CourseModel";
 import CourseProps from "./components/CourseProps";
 import { getAllCourses } from "../../api/CourseAPI";
 import { Pagination } from "../utils/Pagination";
+import { SyncLoader } from "react-spinners";
 
 
 const ListProduct: React.FC = () => {
@@ -13,6 +14,12 @@ const ListProduct: React.FC = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [totalPages, setTotalPages] = useState<number>(0);
     const [totalCoursePerPage, setTotalCoursePerPage] = useState<number>(0);
+    const carouselcss = {
+        // center screen
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+    };
 
     useEffect(() => {
         getAllCourses(currentPage-1).then(
@@ -33,13 +40,7 @@ const ListProduct: React.FC = () => {
 
     if (loading) {
         return (
-            <div className="container">
-                <div className="row mt-4">
-                    <div className="col-12">
-                        <h2>Loading...</h2>
-                    </div>
-                </div>
-            </div>
+            <SyncLoader className="carouselcss" color="#36d7b7" />
         );
     }
 
