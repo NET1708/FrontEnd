@@ -13,7 +13,9 @@ function About() {
                             <p>
                                 ANI-TESTLAB là nền tảng e-learning hàng đầu, giúp bạn học tập mọi lúc, mọi nơi một cách hiệu quả nhất.
                             </p>
-                            <Button variant="dark">Tham gia ngay</Button>
+                            <Button variant="outline-success mb-4">
+                                Tham gia ngay
+                            </Button>
                         </Col>
                         <Col md={6}>
                             <Image loading="lazy" src='./images/public/banner.jpg' style={{ width: '100%', borderRadius: '10px', boxShadow: '0 0 10px rgba(0,0,0,0.5)', border: '1px solid #ddd' }} />
@@ -47,14 +49,14 @@ function About() {
                 <Container>
                     <Row>
                         <Col md={6}>
-                            <Image loading="lazy" src="./images/public/about-us.jpg" fluid style={{ borderRadius: '10px', boxShadow: '0 0 10px rgba(0,0,0,0.5)', border: '1px solid #ddd' }} />
+                            <Image loading="lazy" src="./images/public/about-us.jpg" fluid style={{ borderRadius: '10px', boxShadow: '0 0 10px rgba(0,0,0,0.5)', border: '1px solid #ddd', marginBottom: '20px' }} />
                         </Col>
                         <Col md={6}>
                             <h2>Về chúng tôi</h2>
                             <p>
                                 ANI-TESTLAB ra đời với mục đích mang đến những cơ hội học tập chất lượng cao cho các bạn học sinh THPT. Chúng tôi cam kết đồng hành cùng bạn trên con đường chinh phục tri thức, phát triển kỹ năng và vươn tới thành công.
                             </p>
-                            <Button variant="dark">Tìm hiểu thêm</Button>
+                            <Button variant="outline-dark">Tìm hiểu thêm</Button>
                         </Col>
                     </Row>
                 </Container>

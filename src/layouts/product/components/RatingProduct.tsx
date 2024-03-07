@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
-import CourseModel from "../../../models/CourseModel";
-import ImageModel from "../../../models/ImageModel";
 import { SyncLoader } from "react-spinners";
-import { Link } from "react-router-dom";
-import { Carousel } from "react-responsive-carousel";
 import { getAllRatingOfOneCourse } from "../../../api/RatingCourseAPI";
 import { RatingCourseModel } from "../../../models/RatingCourseModel";
+import renderRating from "../../utils/RenderRating";
 
 interface RatingProduct {
     courseId: number;
@@ -59,30 +56,32 @@ const RatingProduct: React.FC<RatingProduct> = (props) => {
 
     return (
         <div className="row">
-            {
-                listRatingCourse.map((ratingCourse, index) => {
-                    return (
-                        <div className="col-12">
-                            <div className="row">
-                                <div className="col-12">
-                                    <div className="d-flex justify-content-between align-items-start rating-container mb-3">
-                                        <div className="rating-header">
-                                            <img src="https://via.placeholder.com/50" className="rounded-circle rating-avatar" alt="..." />
-                                            <div>
-                                                <div className="d-flex align-items-center">
-                                                    <h5 className="rating-name me-2">Nguyễn Văn A</h5>
-                                                    <p className="rating-stars mb-0">{ratingCourse.rate} <i className="fas fa-star"></i></p>
-                                                </div>
-                                                <p className="rating-comment mb-0">{ratingCourse.comment}</p>
+            {listRatingCourse.length > 0 ? (
+                listRatingCourse.map((ratingCourse, index) => (
+                    <div className="col-12" key={index}>
+                        <div className="row">
+                            <div className="col-12">
+                                <div className="d-flex justify-content-between align-items-start rating-container mb-3">
+                                    <div className="rating-header">
+                                        <img src="https://via.placeholder.com/50" className="rounded-circle rating-avatar" alt="..." />
+                                        <div>
+                                            <div className="d-flex align-items-center">
+                                                <h5 className="rating-name me-2">Nguyễn Văn A</h5>
+                                                <p className="rating-stars mb-0">{renderRating(ratingCourse.rate?ratingCourse.rate:0)}</p>
                                             </div>
+                                            <p className="rating-comment mb-0">{ratingCourse.comment}</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    );
-                })
-            }
+                    </div>
+                ))
+            ) : (
+                <div className="col-12">
+                    <p>Sản phẩm này hiện chưa có đánh giá nào!</p>
+                </div>
+            )}
         </div>
     );
 }

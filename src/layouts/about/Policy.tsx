@@ -35,7 +35,7 @@ const Policy = () => {
                     <p>
                       Chúng tôi chấp nhận thanh toán qua các phương thức sau:
                     </p>
-                    <ul>
+                    <ul className='list-unstyled'>
                       <li>Thanh toán trực tiếp tại văn phòng của chúng tôi.</li>
                       <li>Thanh toán qua chuyển khoản ngân hàng.</li>
                       <li>Thanh toán qua thẻ tín dụng.</li>
@@ -49,7 +49,7 @@ const Policy = () => {
                   <p>
                     Chúng tôi hiểu rằng đôi khi bạn có thể không hài lòng với khóa học mà bạn đã đăng ký. Vì vậy, chúng tôi áp dụng chính sách hoàn trả và hoàn tiền sau:
                   </p>
-                  <ul>
+                  <ul className='list-unstyled'>
                     <li>Bạn có thể yêu cầu hoàn trả và hoàn tiền trong vòng 14 ngày kể từ ngày đăng ký khóa học.</li>
                     <li>Chúng tôi sẽ hoàn trả 100% phí khóa học cho các yêu cầu hợp lệ.</li>
                     <li>Để yêu cầu hoàn trả, vui lòng liên hệ với bộ phận hỗ trợ khách hàng của chúng tôi.</li>

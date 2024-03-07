@@ -65,7 +65,9 @@ const CourseProps: React.FC<CoursePropsInterface> = ( props ) => {
                 /></Link>
                 }
                 <div className="card-body">
-                    <p className="card-text">{props.course.description}</p>
+                    <h5 className="card-title">
+                        <Link to={`/course/${props.course.courseId}`} style={{textDecoration: 'none', color: 'black'}}>{props.course.courseName}</Link>
+                    </h5>
                 </div>
                 <div className="price">
                         <span className="price">

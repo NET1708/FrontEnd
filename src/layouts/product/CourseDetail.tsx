@@ -6,6 +6,7 @@ import CourseModel from "../../models/CourseModel";
 import { Button, Tab, Tabs } from "react-bootstrap";
 import CourseImage from "./components/CourseImage";
 import RatingProduct from "./components/RatingProduct";
+import defineNumber from "../utils/defineNumber";
 
 const CourseDetail: React.FC = () => {
     //Lấy courseId từ URL
@@ -52,16 +53,19 @@ const CourseDetail: React.FC = () => {
     };
 
     if (loading) {
-        <SyncLoader className="carouselcss" style={carouselcss} color="#36d7b7" />;
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <SyncLoader color="#36d7b7" size={20} />
+            </div>
+        );
     }
 
     if (error) {
         return (
-            <div className="container">
-                <div className="row mt-4">
-                    <div className="col-12">
-                        <h2>Error: {error}</h2>
-                    </div>
+            <div className="flex justify-center items-center h-screen">
+                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                    <strong className="font-bold">Lỗi:</strong>
+                    <span className="block sm:inline">{error}</span>
                 </div>
             </div>
         );
@@ -69,11 +73,10 @@ const CourseDetail: React.FC = () => {
 
     if (course === null) {
         return (
-            <div className="container">
-                <div className="row mt-4">
-                    <div className="col-12">
-                        <h2>Không tìm thấy khóa học</h2>
-                    </div>
+            <div className="flex justify-center items-center h-screen">
+                <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative" role="alert">
+                    <strong className="font-bold">Thông báo:</strong>
+                    <span className="block sm:inline">Không tìm thấy khóa học</span>
                 </div>
             </div>
         );
@@ -90,7 +93,7 @@ const CourseDetail: React.FC = () => {
                         <div className="course-info p-3">
                             <div className="d-flex justify-content-between align-items-center">
                                 <span className="price">
-                                    <strong>Giá: {course.price}</strong>
+                                    <strong>Giá: {defineNumber(course.price)}</strong>
                                 </span>
                                 <div>
                                     <Button variant="success" className="btn-join me-2">

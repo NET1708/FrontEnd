@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useState } from "react";
+import { Search } from "react-bootstrap-icons";
 import { Link, NavLink } from "react-router-dom";
 
 interface NavbarInterface {
@@ -67,7 +68,9 @@ function Navbar({searchKey, setKey}: NavbarInterface){
           {/* Tìm kiếm */}
           <div className="d-flex">
             <input className="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Search" onChange={searchingCourse} value={keyword} onKeyPress={handleEnter}/>
-            <button className="btn btn-outline-success" type="button" onClick={handlesearch}>Search</button>
+            <button className="btn btn-outline-success" type="button" onClick={handlesearch}>
+              <Search />
+            </button>
           </div>
   
           {/* Biểu tượng giỏ hàng */}
