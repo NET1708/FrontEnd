@@ -2,7 +2,8 @@ import React from "react";
 import ImageModel from "../models/ImageModel";
 import { my_request } from "./Request";
 
-async function getImage(imageId: number,endpoint: string): Promise<ImageModel[]> {
+async function getImage(endpoint: string): Promise<ImageModel[]> {
+
     const result: ImageModel[] = [];
 
     //Get request
@@ -14,7 +15,7 @@ async function getImage(imageId: number,endpoint: string): Promise<ImageModel[]>
     for(const key in data) {
         result.push({
             imageId: data[key].imageId,
-            image_Name: data[key].image_Name,
+            imageName: data[key].imageName,
             isIcon: data[key].isIcon,
             url: data[key].url,
             imageData: data[key].imageData
@@ -24,26 +25,20 @@ async function getImage(imageId: number,endpoint: string): Promise<ImageModel[]>
     return result;
 }
 
-export async function getAllImages(imageId: number): Promise<ImageModel[]> {
+export async function getFirstImages(courseId: number): Promise<ImageModel[]> {
     const result: ImageModel[] = [];
 
     //Detect endpoint
-    const endpoint:string = `https://api.ani-testlab.edu.vn/course/${imageId}/images`;
+    const endpoint:string = `https://api.ani-testlab.edu.vn/course/${courseId}/images`;
 
-    //Get request
-    const response = await my_request(endpoint);
+    return getImage(endpoint);
+}
 
-    //Get data json
-    const data = response._embedded.images;
+export async function getAllImages(courseId: number): Promise<ImageModel[]> {
+    const result: ImageModel[] = [];
 
-    for(const key in data) {
-        result.push({
-            imageId: data[key].imageId,
-            image_Name: data[key].image_Name,
-            isIcon: data[key].isIcon,
-            url: data[key].url,
-            imageData: data[key].imageData
-        });
-    }
-    return result;
+    //Detect endpoint
+    const endpoint:string = `https://api.ani-testlab.edu.vn/course/${courseId}/images?sort=imageId,asc&page=0&size=1`;
+
+    return getImage(endpoint);
 }

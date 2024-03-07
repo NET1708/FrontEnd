@@ -113,3 +113,13 @@
 .bd-mode-toggle .dropdown-menu .active .bi {
   display: block !important;
 }
+
+.nav-tabs li a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.tabcontent {
+  overflow-y: scroll;
+  max-height: 700px; /* Điều chỉnh chiều cao tối đa của phần chứa nội dung */
+}
