@@ -39,7 +39,7 @@ const CourseProps: React.FC<CoursePropsInterface> = ( props ) => {
     )
 
     if (loading) {
-        <SyncLoader className="carouselcss" color="#36d7b7" />
+        <SyncLoader className="carouselcss" style={carouselcss} color="#36d7b7" />
     }
 
     if (error) {

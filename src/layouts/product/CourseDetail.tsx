@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { getCourseById } from "../../api/CourseAPI";
 import CourseModel from "../../models/CourseModel";
 import { Tab, Tabs } from "react-bootstrap";
+import CourseImage from "./components/CourseImage";
 
 const CourseDetail: React.FC = () => {
   //Lấy courseId từ URL
@@ -50,7 +51,7 @@ const CourseDetail: React.FC = () => {
   };
 
   if (loading) {
-    <SyncLoader className="carouselcss" color="#36d7b7" />;
+    <SyncLoader className="carouselcss" style={carouselcss} color="#36d7b7" />;
   }
 
   if (error) {
@@ -83,12 +84,7 @@ const CourseDetail: React.FC = () => {
         <div className="col-md-5">
           <div className="inner">
             <div className="video-place">
-              <img
-                src="https://via.placeholder.com/500"
-                className="card-img-top"
-                alt={course.courseName}
-                style={{ height: "300px", width: "450px" }}
-              />
+              <CourseImage courseId={courseIdNumber} />
             </div>
             <div className="course-info">
               <div className="row mt-2 mb-4" role="group">
@@ -155,7 +151,30 @@ const CourseDetail: React.FC = () => {
                 </Tab>
                 <Tab eventKey="review" title="Đánh giá">
                   <div className="tabcontent">
-                    <h3>Đánh giá</h3>
+                    <div className="row mt-4 mb-4">
+                        <div className="col-12">
+                            <h3>Đánh giá</h3>
+                        </div>
+                        <div className="col-12">
+                            <div className="row">
+                                <div className="col-12">
+                                    <div className="d-flex justify-content-between">
+                                        <div className="d-flex">
+                                            <img src="https://via.placeholder.com/50" className="rounded-circle" alt="..." />
+                                            <div>
+                                                <h5>Nguyễn Văn A</h5>
+                                                <p>5 sao</p>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <p>Thời gian: 10/10/2021</p>
+                                        </div>
+                                    </div>
+                                    <p>Khóa học rất hay, tôi đã học được rất nhiều điều từ khóa học này</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                   </div>
                 </Tab>
               </Tabs>

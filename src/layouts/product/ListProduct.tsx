@@ -59,7 +59,7 @@ function ListProduct({searchKey, categoryId}: ListProductProps) {
 
     if (loading) {
         return (
-            <SyncLoader className="carouselcss" color="#36d7b7" />
+            <SyncLoader className="carouselcss" style={carouselcss} color="#36d7b7" />
         );
     }
 
