@@ -12,12 +12,8 @@ logs:
 	docker-compose logs -f
 prune:
 	@echo "============= delete prune ============="
-	docker system prune -a --volumes -f
+	docker system prune -a --volumes
 restart:
 	@echo "============= Restarting frontend locally ============="
 	docker-compose down
-	docker rmi frontend-app
 	docker-compose up -d
-network:
-	@echo "============= Creating network ============="
-	docker network create swd391-network

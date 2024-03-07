@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import CourseModel from "../../../models/CourseModel";
 import ImageModel from "../../../models/ImageModel";
 import { getAllImages } from "../../../api/ImageAPI";
-import { SyncLoader } from "react-spinners";
-import { Link } from "react-router-dom";
 
 interface CoursePropsInterface {
     course: CourseModel;
@@ -16,12 +14,6 @@ const CourseProps: React.FC<CoursePropsInterface> = ( props ) => {
     const [images, setImages] = useState<ImageModel[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState(null);
-    const carouselcss = {
-        // center screen
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-    };
 
     useEffect(() => {
         getAllImages(course_id).then(
@@ -39,7 +31,15 @@ const CourseProps: React.FC<CoursePropsInterface> = ( props ) => {
     )
 
     if (loading) {
-        <SyncLoader className="carouselcss" style={carouselcss} color="#36d7b7" />
+        return (
+            <div className="container">
+                <div className="row mt-4">
+                    <div className="col-12">
+                        <h2>Loading...</h2>
+                    </div>
+                </div>
+            </div>
+        );
     }
 
     if (error) {
@@ -56,23 +56,23 @@ const CourseProps: React.FC<CoursePropsInterface> = ( props ) => {
 
     return (
         <div className="col-md-3 mt-2">
-            <div className="card h-100">
-                {images[0] && images[0].imageData && <Link to={`/course/${props.course.courseId}`}><img
+            <div className="card">
+                {images[0] && images[0].imageData && <img
                     src={`${images[0].imageData}`}
                     className="card-img-top"
-                    alt={props.course.courseName}
+                    alt={props.course.course_Name}
                     style={{ height: '200px' }}
-                /></Link>
+                />
                 }
                 <div className="card-body">
+                    <h5 className="card-title">{props.course.course_Name}</h5>
                     <p className="card-text">{props.course.description}</p>
-                </div>
-                <div className="price">
+                    <div className="price">
                         <span className="price">
                             <strong>{props.course.price}</strong>
                         </span>
                     </div>
-                <div className="row mt-2 mb-4" role="group">
+                    <div className="row mt-2" role="group">
                         <div className="col-6">
                             <a href="#" className="btn btn-secondary btn-block">
                                 <i className="fas fa-heart"></i>
@@ -84,6 +84,7 @@ const CourseProps: React.FC<CoursePropsInterface> = ( props ) => {
                             </button>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
     );
