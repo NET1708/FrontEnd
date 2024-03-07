@@ -29,7 +29,7 @@ export async function getFirstImages(courseId: number): Promise<ImageModel[]> {
     const result: ImageModel[] = [];
 
     //Detect endpoint
-    const endpoint:string = `http://localhost:8888/course/${courseId}/images`;
+    const endpoint:string = `https://api.ani-testlab.edu.vn/course/${courseId}/images`;
 
     return getImage(endpoint);
 }
@@ -38,7 +38,7 @@ export async function getAllImages(courseId: number): Promise<ImageModel[]> {
     const result: ImageModel[] = [];
 
     //Detect endpoint
-    const endpoint:string = `http://localhost:8888/course/${courseId}/images?sort=imageId,asc&page=0&size=1`;
+    const endpoint:string = `https://api.ani-testlab.edu.vn/course/${courseId}/images?sort=imageId,asc&page=0&size=1`;
 
     return getImage(endpoint);
 }
