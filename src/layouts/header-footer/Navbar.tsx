@@ -48,15 +48,15 @@ function Navbar({searchKey, setKey}: NavbarInterface){
                   <li><NavLink className="dropdown-item" to="/3">Thể loại 3</NavLink></li>
                 </ul>
               </li>
-              <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Quy định bán hàng
+              <li className="nav-item">
+                <a className="nav-link" href="/policy">
+                  Chính sách
                 </a>
-                <ul className="dropdown-menu" aria-labelledby="navbarDropdown2">
-                  <li><a className="dropdown-item" href="#">Quy định 1</a></li>
-                  <li><a className="dropdown-item" href="#">Quy định 2</a></li>
-                  <li><a className="dropdown-item" href="#">Quy định 3</a></li>
-                </ul>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/about">
+                  Về chúng tôi
+                </a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#">Liên hệ</a>
