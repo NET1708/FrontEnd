@@ -1,13 +1,13 @@
 class ImageModel {
     imageId: number;
-    imageName?: string;
+    image_Name?: string;
     isIcon?: boolean;
     url?: string;
     imageData?: string;
 
-    constructor(imageId: number, imageName?: string, isIcon?: boolean, url?: string, imageData?: string) {
+    constructor(imageId: number, image_Name?: string, isIcon?: boolean, url?: string, imageData?: string) {
         this.imageId = imageId;
-        this.imageName = imageName;
+        this.image_Name = image_Name;
         this.isIcon = isIcon;
         this.url = url;
         this.imageData = imageData;
