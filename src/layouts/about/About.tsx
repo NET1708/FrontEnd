@@ -1,6 +1,18 @@
 import React from "react";
 import { Container, Row, Col, Image, Button } from 'react-bootstrap';
+import { Link } from "react-bootstrap-icons";
+import { useNavigate } from "react-router-dom";
 function About() {
+
+    const navigate = useNavigate();
+
+    const handleJoinButton = () => {
+        navigate('/register');
+      };
+
+    const handlePolicy = () => {
+        navigate('/policy');
+    };
 
     return (
         <div>
@@ -13,7 +25,7 @@ function About() {
                             <p>
                                 ANI-TESTLAB là nền tảng e-learning hàng đầu, giúp bạn học tập mọi lúc, mọi nơi một cách hiệu quả nhất.
                             </p>
-                            <Button variant="outline-success mb-4">
+                            <Button variant="outline-success mb-4" onClick={handleJoinButton}>
                                 Tham gia ngay
                             </Button>
                         </Col>
@@ -56,7 +68,7 @@ function About() {
                             <p>
                                 ANI-TESTLAB ra đời với mục đích mang đến những cơ hội học tập chất lượng cao cho các bạn học sinh THPT. Chúng tôi cam kết đồng hành cùng bạn trên con đường chinh phục tri thức, phát triển kỹ năng và vươn tới thành công.
                             </p>
-                            <Button variant="outline-dark">Tìm hiểu thêm</Button>
+                            <Button variant="outline-dark" onClick={handlePolicy}>Tìm hiểu thêm</Button>
                         </Col>
                     </Row>
                 </Container>

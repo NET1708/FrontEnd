@@ -11,6 +11,7 @@ import defineNumber from "../utils/defineNumber";
 const CourseDetail: React.FC = () => {
     //Lấy courseId từ URL
     const { courseId } = useParams();
+    console.log("courseId", courseId);
 
     let courseIdNumber: number = 0;
 

@@ -57,8 +57,8 @@ const RatingProduct: React.FC<RatingProduct> = (props) => {
     return (
         <div className="row">
             {listRatingCourse.length > 0 ? (
-                listRatingCourse.map((ratingCourse, index) => (
-                    <div className="col-12" key={index}>
+                listRatingCourse.map((ratingCourse) => (
+                    <div className="col-12" key={ratingCourse.rateId}>
                         <div className="row">
                             <div className="col-12">
                                 <div className="d-flex justify-content-between align-items-start rating-container mb-3">

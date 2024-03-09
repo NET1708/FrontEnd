@@ -59,9 +59,6 @@ function Navbar({searchKey, setKey}: NavbarInterface){
                   Về chúng tôi
                 </a>
               </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">Liên hệ</a>
-              </li>
             </ul>
           </div>
   
