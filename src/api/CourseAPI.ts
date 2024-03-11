@@ -40,7 +40,7 @@ async function getCourse(endpoint: string): Promise<ResultInterface> {
 export async function getAllCourses(currentPage: number): Promise<ResultInterface> {
 
     //Detect endpoint
-    const endpoint:string = `https://api.ani-testlab.edu.vn//course?sort=courseId,desc&size=8&page=${currentPage}`;
+    const endpoint:string = `https://api.ani-testlab.edu.vn/course?sort=courseId,desc&size=8&page=${currentPage}`;
 
     return getCourse(endpoint);
 }
@@ -48,7 +48,7 @@ export async function getAllCourses(currentPage: number): Promise<ResultInterfac
 export async function getTop3Courses(): Promise<ResultInterface> {
 
     //Detect endpoint
-    const endpoint:string = 'https://api.ani-testlab.edu.vn//course?sort=courseId,desc&page=0&size=3';
+    const endpoint:string = 'https://api.ani-testlab.edu.vn/course?sort=courseId,desc&page=0&size=3';
 
     return getCourse(endpoint);
 }
@@ -56,13 +56,13 @@ export async function getTop3Courses(): Promise<ResultInterface> {
 export async function searchCourseByName(key: string, currentPage: number, categoryId: number): Promise<ResultInterface> {
 
     //Detect endpoint
-    let endpoint:string = `https://api.ani-testlab.edu.vn//course?sort=courseId,desc&size=8&page=${currentPage}`;
+    let endpoint:string = `https://api.ani-testlab.edu.vn/course?sort=courseId,desc&size=8&page=${currentPage}`;
     if (key !== '' && categoryId == 0) {
-        endpoint = `https://api.ani-testlab.edu.vn//course/search/findByCourseNameContaining?courseName=${key}&sort=courseId,desc&size=8&page=${currentPage}`;
+        endpoint = `https://api.ani-testlab.edu.vn/course/search/findByCourseNameContaining?courseName=${key}&sort=courseId,desc&size=8&page=${currentPage}`;
     } else if (key === '' && categoryId > 0) {
-        endpoint = `https://api.ani-testlab.edu.vn//course/search/findByCategories_categoryId?sort=courseId,desc&size=8&page=${currentPage}&categoryId=${categoryId}`;
+        endpoint = `https://api.ani-testlab.edu.vn/course/search/findByCategories_categoryId?sort=courseId,desc&size=8&page=${currentPage}&categoryId=${categoryId}`;
     } else if (key !== '' && categoryId > 0) {
-        endpoint = `https://api.ani-testlab.edu.vn//course/search/findByCourseNameContainingAndCategories_categoryId?courseName=${key}&sort=courseId,desc&size=8&page=${currentPage}&categoryId=${categoryId}`;
+        endpoint = `https://api.ani-testlab.edu.vn/course/search/findByCourseNameContainingAndCategories_categoryId?courseName=${key}&sort=courseId,desc&size=8&page=${currentPage}&categoryId=${categoryId}`;
     }
 
     return getCourse(endpoint);
@@ -71,7 +71,7 @@ export async function searchCourseByName(key: string, currentPage: number, categ
 export async function getCourseById(courseId: number): Promise<CourseModel|null> {
 
     //Detect endpoint
-    const endpoint:string = `https://api.ani-testlab.edu.vn//course/${courseId}`;
+    const endpoint:string = `https://api.ani-testlab.edu.vn/course/${courseId}`;
 
     try {
 
