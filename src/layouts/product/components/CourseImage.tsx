@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import CourseModel from "../../../models/CourseModel";
 import ImageModel from "../../../models/ImageModel";
 import { getAllImages } from "../../../api/ImageAPI";
 import { SyncLoader } from "react-spinners";
 import { Link } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 interface CourseImage {
     courseId: number;
@@ -66,27 +66,20 @@ const CourseImage: React.FC<CourseImage> = ( props ) => {
 
     return (
         <div className="row">
-            <div className="">
-                {currentImage?.imageData && <img src={currentImage.imageData} className="img-thumbnail" style={{ height: '200px' }} />}
-            </div>
-            <div className="row">
-                {
-                    images.map((image, index) => {
-                        return (
-                            <div className="col-md-3 mt-2" key={index}>
-                                <div>
-                                    <img
-                                        src={`${image.imageData}`}
-                                        className="img-thumbnail"
-                                        alt={image.imageName}
-                                        style={{ height: '100px', cursor: 'pointer', border: currentImage?.imageId === image.imageId ? '2px solid #36d7b7' : '' }}
-                                        onClick={() => changeImage(image)}
-                                    />
-                                </div>
-                            </div>
-                        );
-                    })
-                }
+            <div className="col-12">
+                <Carousel autoPlay={true} showThumbs={false} showStatus={false} infiniteLoop={true}>
+                    {images.map((image, index) => (
+                        <div key={index}>
+                            <Link to={`/course/${course_id}`}>
+                                <img
+                                    src={`${image.imageData}`}
+                                    alt={image.imageName}
+                                    style={{ height: '200px' }}
+                                />
+                            </Link>
+                        </div>
+                    ))}
+                </Carousel>
             </div>
         </div>
     );
