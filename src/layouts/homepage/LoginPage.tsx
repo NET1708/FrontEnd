@@ -26,7 +26,7 @@ const LoginPage = () => {
       password: password
     };
 
-    fetch('https://api.ani-testlab.edu.vn//account/login', {
+    fetch('https://api.ani-testlab.edu.vn/account/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
