@@ -1,10 +1,13 @@
 // components/LoginPage.js
 import Aos from 'aos';
+import { jwtDecode } from 'jwt-decode';
 import React, { useEffect, useState } from 'react';
 import { Container, Form, Button, Row, Col } from 'react-bootstrap';
 import { RiUserLine, RiLockPasswordLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
-
+interface JwtPayload {
+  isActive: boolean;
+}
 const LoginPage = () => {
 
   useEffect(() => {
@@ -23,7 +26,7 @@ const LoginPage = () => {
       password: password
     };
 
-    fetch('http://localhost:8888/account/login', {
+    fetch('https://api.ani-testlab.edu.vn//account/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -39,8 +42,17 @@ const LoginPage = () => {
       const { jwt } = data;
       // Save token to local storage or cookie
       localStorage.setItem('token', jwt);
-      // Redirect to home page
-      setMessage('Đăng nhập thành công');
+      //decode jwt
+      const decodedToken = jwtDecode(jwt) as JwtPayload;
+      //check isActive
+      if (decodedToken.isActive) {
+        //redirect to home page
+        window.location.href = '/';
+      } else {
+        setMessage('Tài khoản của bạn chưa được kích hoạt, vui lòng kiểm tra email để kích hoạt tài khoản');
+      }
+
+      console.log(data);
     }
     ).catch(error => {
       setMessage('Đăng nhập không thành công, vui lòng kiểm tra lại thông tin');

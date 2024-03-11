@@ -27,7 +27,7 @@ export async function getAllRatingOfOneCourse(courseId: number): Promise<RatingC
     const result: RatingCourseModel[] = [];
 
     //Detect endpoint
-    const endpoint:string = `http://localhost:8888/course/${courseId}/rates`;
+    const endpoint:string = `https://api.ani-testlab.edu.vn//course/${courseId}/rates`;
 
     return getRatingCourse(endpoint);
 }
@@ -36,7 +36,7 @@ export async function getOneRatingOfOneCourse(courseId: number): Promise<RatingC
     const result: RatingCourseModel[] = [];
 
     //Detect endpoint
-    const endpoint:string = `http://localhost:8888/course/${courseId}/rates?sort=rateId,asc&page=0&size=1`;
+    const endpoint:string = `https://api.ani-testlab.edu.vn//course/${courseId}/rates?sort=rateId,asc&page=0&size=1`;
 
     return getRatingCourse(endpoint);
 }
