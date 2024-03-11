@@ -1,6 +1,10 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { Search } from "react-bootstrap-icons";
 import { Link, NavLink } from "react-router-dom";
+import LoginPage from "../homepage/LoginPage";
+import { get } from "http";
+import { getAllCategories } from "../../api/CategoryAPI";
+import CategoryModel from "../../models/CategoryModel";
 
 interface NavbarInterface {
     searchKey: string;
@@ -10,6 +14,7 @@ interface NavbarInterface {
 function Navbar({searchKey, setKey}: NavbarInterface){
 
   let [keyword, setKeyword] = useState('');
+  const [listCategory, setListCategory] = useState<CategoryModel[]>([]);
 
   const searchingCourse = (e: ChangeEvent<HTMLInputElement>) => { //khi người dùng nhập vào ô tìm kiếm
     setKeyword(e.target.value);
@@ -25,6 +30,17 @@ function Navbar({searchKey, setKey}: NavbarInterface){
   const handlesearch = () => { //khi người dùng nhấn nút tìm kiếm
     setKey(keyword);
   }
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setListCategory(await getAllCategories());
+      } catch (error) {
+        console.log('Lỗi khi lấy dữ liệu từ API');
+      }
+    }
+    fetchData();
+  }, []);
 
     return(
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -44,9 +60,13 @@ function Navbar({searchKey, setKey}: NavbarInterface){
                   Thể loại
                 </NavLink>
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown1">
-                  <li><NavLink className="dropdown-item" to="/1">Thể loại 1</NavLink></li>
-                  <li><NavLink className="dropdown-item" to="/2">Thể loại 2</NavLink></li>
-                  <li><NavLink className="dropdown-item" to="/3">Thể loại 3</NavLink></li>
+                  {listCategory.map((category, index) => {
+                    return (
+                      <li key={index}>
+                        <NavLink className="dropdown-item" to={`/${category.categoryId}`}>{category.categoryName}</NavLink>
+                      </li>
+                    );
+                  })}
                 </ul>
               </li>
               <li className="nav-item">
@@ -82,9 +102,9 @@ function Navbar({searchKey, setKey}: NavbarInterface){
           {/* Biểu tượng đăng nhập */}
           <ul className="navbar-nav me-1">
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <NavLink className="nav-link" to='/login'>
                 <i className="fas fa-user"></i>
-              </a>
+              </NavLink>
             </li>
           </ul>
         </div>

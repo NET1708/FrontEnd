@@ -222,3 +222,8 @@
 .btn-cart {
   font-weight: bold;
 }
+
+/* ẩn hiện nội dung */
+.hide {
+  display: none;
+}

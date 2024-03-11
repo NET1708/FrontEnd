@@ -4,7 +4,7 @@ const renderRating = (point: number) => {
 
     const stars = [];
 
-    for (let i = 0; i < point; i++) {
+    for (let i = 1; i <= 5; i++) {
         if (i <= point) {
             stars.push(<StarFill className="text-warning" />);
         } else {

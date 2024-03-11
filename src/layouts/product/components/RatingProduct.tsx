@@ -3,6 +3,7 @@ import { SyncLoader } from "react-spinners";
 import { getAllRatingOfOneCourse } from "../../../api/RatingCourseAPI";
 import { RatingCourseModel } from "../../../models/RatingCourseModel";
 import renderRating from "../../utils/RenderRating";
+import { StarFill } from "react-bootstrap-icons";
 
 interface RatingProduct {
     courseId: number;

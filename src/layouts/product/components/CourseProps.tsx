@@ -4,6 +4,7 @@ import ImageModel from "../../../models/ImageModel";
 import { getAllImages } from "../../../api/ImageAPI";
 import { SyncLoader } from "react-spinners";
 import { Link } from "react-router-dom";
+import renderRating from "../../utils/RenderRating";
 
 interface CoursePropsInterface {
     course: CourseModel;
@@ -73,15 +74,14 @@ const CourseProps: React.FC<CoursePropsInterface> = ( props ) => {
                         <span className="price">
                             <strong>{props.course.price}</strong>
                         </span>
-                    </div>
+                </div>
+                <hr/>
                 <div className="row mt-2 mb-4" role="group">
-                        <div className="col-6">
-                            <a href="#" className="btn btn-secondary btn-block">
-                                <i className="fas fa-heart"></i>
-                            </a>
+                        <div className="col-6 ">
+                            {renderRating(props.course.averageRating?props.course.averageRating:0)}
                         </div>
-                        <div className="col-6">
-                            <button className="btn btn-danger btn-block">
+                        <div className="col-6 text-end">
+                            <button className="btn btn-danger btn-block me-4">
                                 <i className="fas fa-shopping-cart"></i>
                             </button>
                         </div>

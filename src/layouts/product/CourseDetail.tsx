@@ -7,6 +7,7 @@ import { Button, Tab, Tabs } from "react-bootstrap";
 import CourseImage from "./components/CourseImage";
 import RatingProduct from "./components/RatingProduct";
 import defineNumber from "../utils/defineNumber";
+import renderRating from "../utils/RenderRating";
 
 const CourseDetail: React.FC = () => {
     //Lấy courseId từ URL
@@ -160,7 +161,7 @@ const CourseDetail: React.FC = () => {
                                     <div className="tabcontent">
                                         <div className="row mt-4 mb-4">
                                             <div className="col-12">
-                                                <h3>Đánh giá</h3>
+                                                <h3>Đánh giá {renderRating(course.averageRating?course.averageRating:0)}</h3>
                                             </div>
                                             <RatingProduct courseId={courseIdNumber} />
                                         </div>

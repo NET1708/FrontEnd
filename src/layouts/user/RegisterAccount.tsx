@@ -229,7 +229,7 @@ function RegisterAccount() {
     }
 
     return (
-        <Container className="border border-primary rounded-5 mt-3 bg-dark rounded" fluid="md" style={{width: '750px'}}>
+        <Container className="border border-primary rounded-5 mt-5 bg-dark rounded" fluid="md" style={{width: '650px'}}>
             <h1 className="mt-5 text-center text-light">Đăng ký</h1>
             <div className="mb-3 col-md-6 col-12 mx-auto">
                 <Form onClick={handleSubmit} className="form">

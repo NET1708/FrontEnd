@@ -29,7 +29,8 @@ async function getCourse(endpoint: string): Promise<ResultInterface> {
             courseName: data[key].courseName,
             description: data[key].description,
             price: data[key].price,
-            amount: data[key].amount
+            amount: data[key].amount,
+            averageRating: data[key].averageRating
         });
     }
 
@@ -89,7 +90,8 @@ export async function getCourseById(courseId: number): Promise<CourseModel|null>
                 courseName: data.courseName,
                 description: data.description,
                 price: data.price,
-                amount: data.amount
+                amount: data.amount,
+                averageRating: data.averageRating
             }
         } else {
             throw new Error(`Không tìm thấy khóa học có id = ${courseId}`);
