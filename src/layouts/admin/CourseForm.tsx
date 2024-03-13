@@ -122,7 +122,20 @@ const CourseForm: React.FC = () => {
         }
       }
 
-      if (uploadCourseResponse.ok) {
+      const handleUrl = (url: string) => {
+        return url.split('=')[1];
+      }
+      const url_id = handleUrl(chapter);
+      const uploadChapterResponse = await fetch('http://localhost:8888/playlist/videos', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ url: url_id }),
+      });
+
+      if (uploadCourseResponse.ok && uploadChapterResponse.ok) {
         alert('Thêm khóa học và hình ảnh thành công');
         setCourse({
           courseId: 0,

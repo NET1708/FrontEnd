@@ -229,3 +229,21 @@
 .hide {
   display: none;
 }
+
+/* css for course detail qr */
+.qr-code-container {
+  max-width: 300px;
+  max-height: 380px;
+}
+
+.qr-code-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.qr-code-wrapper img {
+  max-width: 100%;
+  height: auto;
+}

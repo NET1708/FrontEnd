@@ -11,6 +11,7 @@
     "@types/react": "^18.2.60",
     "@types/react-dom": "^18.2.19",
     "aos": "^2.3.4",
+    "axios": "^1.6.7",
     "bootstrap": "^5.3.3",
     "jwt-decode": "^4.0.0",
     "react": "^18.2.0",
@@ -29,7 +30,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "SET GENERATE_SOURCEMAP=false && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
