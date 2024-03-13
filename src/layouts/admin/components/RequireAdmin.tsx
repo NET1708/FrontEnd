@@ -3,11 +3,8 @@ import { useNavigate } from "react-router-dom";
 import {jwtDecode} from 'jwt-decode';
 
 interface JwtPayload {
-    isAdmin: boolean;
-    isStaff: boolean;
-    isParent: boolean;
-    isStudent: boolean;
-    isTeacher: boolean;
+    user_id: number,
+    roles: Array<{ roleId: number; roleName: string }>;
 }
 
 const RequireAdmin = <P extends object>(WrappedComponent: React.ComponentType<P>) => {
@@ -23,11 +20,12 @@ const RequireAdmin = <P extends object>(WrappedComponent: React.ComponentType<P>
             } else {
                 // Giải mã token
                 const decodedToken = jwtDecode(token) as JwtPayload;
-                console.log(decodedToken);
+                // console.log(decodedToken);
 
                 // Lấy thông tin cụ thể
-                const isAdmin = decodedToken.isAdmin;
-
+                const roles = decodedToken.roles.map((role) => role.roleName);
+                // console.log(roles);
+                const isAdmin = roles.includes("ADMIN");
                 // Kiểm tra không phải là admin
                 if (!isAdmin) {
                     navigate("/403-forbidden");
