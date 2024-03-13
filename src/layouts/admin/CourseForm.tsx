@@ -21,6 +21,7 @@ const CourseForm: React.FC = () => {
   const [chapter, setChapter] = useState<string>("");
 
   useEffect(() => {
+    document.title = "Thêm khóa học mới";
     getAllCategories().then((data) => {
       const options = data.map((category) => {
         return {
@@ -76,7 +77,7 @@ const CourseForm: React.FC = () => {
     };
     console.log(body_req);
     try {
-      const uploadCourseResponse = await fetch('https://api.ani-testlab.edu.vn/course/add', {
+      const uploadCourseResponse = await fetch('http://localhost:8888/course/add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -105,7 +106,7 @@ const CourseForm: React.FC = () => {
 
       for (const image of images) {
         const base64Data = await getBase64(image);
-        const response = await fetch('https://api.ani-testlab.edu.vn/image/add', {
+        const response = await fetch('http://localhost:8888/image/add', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

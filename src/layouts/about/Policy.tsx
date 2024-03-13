@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Row, Col, Accordion } from 'react-bootstrap';
 
 const Policy = () => {
+  document.title = "Chính sách bán hàng";
   return (
     <div className="sales-policies">
       <Container>

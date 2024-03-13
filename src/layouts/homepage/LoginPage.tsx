@@ -12,6 +12,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     Aos.init({ once: true });
+    document.title = "Đăng nhập";
   }
   );
 
@@ -26,7 +27,9 @@ const LoginPage = () => {
       password: password
     };
 
-    fetch('https://api.ani-testlab.edu.vn/account/login', {
+    //title for page
+
+    fetch('http://localhost:8888/account/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

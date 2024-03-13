@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container, Row, Col, Image, Button } from 'react-bootstrap';
 import { Link } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
 function About() {
+
+    document.title = "About us";
+
 
     const navigate = useNavigate();
 

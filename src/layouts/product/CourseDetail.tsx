@@ -33,6 +33,10 @@ const CourseDetail: React.FC = () => {
     const [activeTab, setActiveTab] = useState<string>("introduction");
 
     useEffect(() => {
+
+        //Title cho trang
+        document.title = "Chi tiết khóa học";
+
         getCourseById(courseIdNumber)
             .then((data) => {
                 setCourse(data);

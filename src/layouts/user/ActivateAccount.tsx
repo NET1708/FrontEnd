@@ -16,17 +16,22 @@ function ActivateAccount() {
         alignItems: "center",
     };
 
+    //Title cho trang
+    document.title = "Kích hoạt tài khoản";
+
     const Activate = async() => {
         
         try {
-            const url: string = `https://api.ani-testlab.edu.vn/account/activate?email=${email}&code=${code}`;
+            const url: string = `http://localhost:8888/account/activate?email=${email}&code=${code}`;
             const response = await fetch(url,  {method: "GET"} );
             console.log("Response: ", response);
             if(response.ok){
                 setIsActive(true);
                 setLoading(false);
             }else{
-                setMessage(response.text + "");
+                const data = await response.json();
+                setMessage(data.message);
+                setLoading(false);
             }
         } catch (error) {
             console.log("Lỗi khi kích hoạt: " , error);
@@ -51,8 +56,28 @@ function ActivateAccount() {
     }
 
     return (
-        <div>
-            {is_active ? <h1>Tài khoản của bạn đã được kích hoạt thành công, bạn có thể đăng nhập ngay bây giờ</h1> : <h1>Tài khoản của bạn kích hoạt không thành công, vui lòng thử lại sau {message}</h1>}
+        <div className="container mt-5 justify-content-center align-items-center">
+            <div className="row">
+                <div className="col-md-8 offset-md-2">
+                    <div className="card">
+                        <div className="card-body">
+                            <h5 className="card-title text-center">Kích hoạt tài khoản</h5>
+                            {is_active ? (
+                                <div>
+                                    <p className="text-success text-center">Tài khoản của bạn đã được kích hoạt thành công</p>
+                                    <p className="text-center">
+                                        <a href="/login" className="btn btn-primary">Đăng nhập</a>
+                                    </p>
+                                </div>
+                            ) : (
+                                <div>
+                                    <p className="text-danger text-center">{message}</p>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

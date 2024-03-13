@@ -9,6 +9,7 @@ interface HomePageProps {
 }
 
 function HomePage({searchKey}: HomePageProps) {
+    document.title = "Ani-Testlab - Home Page";
 
     const {categoryId} = useParams(); //get categoryId from url
     let categoryIdNumber = 0;
