@@ -43,7 +43,7 @@ const CourseProps: React.FC<CoursePropsInterface> = (props) => {
   }
   const handleAddToCart = (courseId: number) => {
     const cartDataList = [
-      { courseId: props.course.courseId },
+      { courseID: courseId },
       // Add more cart data objects as needed
     ];
 
