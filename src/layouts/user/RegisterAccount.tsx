@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Container } from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
+import { useMediaQuery } from "react-responsive";
 function RegisterAccount() {
 
     const [username, setUsername] = useState<string>("");
@@ -15,6 +16,7 @@ function RegisterAccount() {
     const [emailError, setEmailError] = useState<string>("");
     const [fullnameError, setFullnameError] = useState<string>("");
     const [phoneError, setPhoneError] = useState<string>("");
+    const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
 
     //Biến thông báo
     const [message, setMessage] = useState<string>("");
@@ -197,6 +199,49 @@ function RegisterAccount() {
     }
 
     return (
+        <div>
+            {isMobile ? 
+            <Container className="border border-primary rounded-5 mt-5 bg-dark rounded" fluid="md" style={{width: 'auto'}}>
+            <h1 className="mt-5 text-center text-light">Đăng ký</h1>
+            <div className="mb-3 col-md-6 col-12 mx-auto">
+                <Form className="form">
+                    <div className="form-row align-items-center">
+                    <div className="mb-3">
+                        <label htmlFor="username" className="form-label justify-content-start text-light">Tên đăng nhập:</label>
+                        <input type="text" id="username" className="form-control" value={username} onChange={handleUsername} />
+                        <div style={{ color: "red" }}>{usernameError}</div>
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="password" className="form-label text-light">Mật khẩu:</label>
+                        <input type="password" id="password" className="form-control" value={password} onChange={handlePassword} />
+                        <div style={{ color: "red" }}>{passwordError}</div>
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="email" className="form-label text-light">Email</label>
+                        <input type="text" id="email" className="form-control" value={email} onChange={handleEmail} />
+                        <div style={{ color: "red" }}>{emailError}</div>
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="fullname" className="form-label text-light">Họ tên: </label>
+                        <input type="text" id="fullname" className="form-control" value={fullname} onChange={handleFullName} />
+                        <div style={{ color: "red" }}>{fullnameError}</div>
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="phone" className="form-label text-light">Điện thoại:</label>
+                        <input type="text" id="phone" className="form-control" value={phone} onChange={handlePhone} />
+                        <div style={{ color: "red" }}>{phoneError}</div>
+                    </div>
+                    <div className="text-center">
+                        <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Đăng ký</button>
+                        <div style={{ color: "green" }}>
+                            {message}
+                        </div>
+                    </div>
+                    </div>
+                </Form>
+            </div>
+        </Container>
+        :
         <Container className="border border-primary rounded-5 mt-5 bg-dark rounded" fluid="md" style={{width: '650px'}}>
             <h1 className="mt-5 text-center text-light">Đăng ký</h1>
             <div className="mb-3 col-md-6 col-12 mx-auto">
@@ -237,6 +282,8 @@ function RegisterAccount() {
                 </Form>
             </div>
         </Container>
+        }
+        </div>
     );
 }
 
