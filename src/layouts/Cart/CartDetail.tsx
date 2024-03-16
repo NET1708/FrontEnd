@@ -1,25 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios, { AxiosRequestConfig } from "axios";
-
-interface ApiResponse {
-  orderId: string;
-  createdAt: string;
-  total: number;
-  status: number;
-  user: {
-    userId: number;
-    username: string;
-    email: string;
-    fullName: string;
-    address: string;
-    phone: string;
-  };
-  transaction: any;
-}
-
+import { useNavigate } from "react-router-dom";
+import OrderResponse from "../../models/OrderResponse";
 const OrderData: React.FC = () => {
-  const [orderDataList, setOrderDataList] = useState<ApiResponse[]>([]);
-
+  const [orderDataList, setOrderDataList] = useState<OrderResponse[]>([]);
+  const history = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -29,7 +14,7 @@ const OrderData: React.FC = () => {
           },
         };
 
-        const response = await axios.get<ApiResponse[]>(
+        const response = await axios.get<OrderResponse[]>(
           "http://localhost:8888/order/get-cart",
           config
         );
@@ -43,7 +28,7 @@ const OrderData: React.FC = () => {
   }, []);
 
   const handleViewClick = (orderId: string) => {
-    console.log(`View button clicked for order ID: ${orderId}`);
+    history(`/cart/view?orderId=${orderId}`);
   };
 
   const handleDeleteClick = (orderId: string) => {

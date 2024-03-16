@@ -13,6 +13,7 @@ import CourseForm_Admin from "./layouts/admin/CourseForm";
 import Component_403 from "./layouts/error/Component_403";
 import ActivateAccount from "./layouts/user/ActivateAccount";
 import OrderData from "./layouts/Cart/CartDetail";
+import CartView from "./layouts/Cart/View";
 function App() {
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/activate/:email/:code" element={<ActivateAccount />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/cart" element={<OrderData />} />
+          <Route path="/cart/view" element={<CartView />} />
           <Route path="/admin/add-course" element={<CourseForm_Admin />} />
           <Route path="/403-forbidden" element={<Component_403 />} />
           <Route path="/about" element={<About />} />
