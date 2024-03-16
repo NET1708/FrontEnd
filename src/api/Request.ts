@@ -7,4 +7,3 @@ export async function my_request(endpoint:string) {
     }
     return await response.json();
 }
-
