@@ -39,8 +39,9 @@ const LoginPage = () => {
     ).then(response => {
       if (response.ok) {
         return response.json();
+      } else {
+        setMessage('Đăng nhập không thành công, vui lòng kiểm tra lại thông tin');
       }
-      throw new Error('Đăng nhập không thành công');
     }).then(data => {
       const { jwt } = data;
       // Save token to local storage or cookie

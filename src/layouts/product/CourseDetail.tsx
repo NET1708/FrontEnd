@@ -128,6 +128,13 @@ const CourseDetail: React.FC = () => {
     }
 
     const handleJoin = () => {
+        //check if user is logged in, if not, redirect to login page
+        const token = localStorage.getItem("token");
+        if (!token) {
+            //redirect to login page
+            window.location.href = "/login";            
+            return;
+        }
         const cartDataList = [
             { courseID: courseId },
             // Add more cart data objects as needed

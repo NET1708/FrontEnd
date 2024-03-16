@@ -247,3 +247,30 @@
   max-width: 100%;
   height: auto;
 }
+
+@media (max-width: 576px) {
+  .display-5 {
+    font-size: 18px; /* Điều chỉnh kích thước chữ tùy ý */
+  }
+}
+
+.list-category {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  display: inline-flex;
+  flex-wrap: wrap;
+  background-color: #DBE0E9;
+  border-radius: 5px;
+}
+
+.nav-pills .nav-link {
+  background-color: #DBE0E9;
+  color: black;
+}
+
+.nav-pills .nav-link.active {
+  background-color: white;
+  color: blue; /* Thay đổi màu chữ khi active nếu cần */
+}

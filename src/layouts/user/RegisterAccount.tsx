@@ -7,17 +7,13 @@ function RegisterAccount() {
     const [password, setPassword] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [fullname, setFullname] = useState<string>("");
-    const [address, setAddress] = useState<string>("");
     const [phone, setPhone] = useState<string>("");
-    const [gender, setGender] = useState(1);
-    const [role, setRole] = useState(1);
 
     //Các biến lỗi
     const [usernameError, setUsernameError] = useState<string>("");
     const [passwordError, setPasswordError] = useState<string>("");
     const [emailError, setEmailError] = useState<string>("");
     const [fullnameError, setFullnameError] = useState<string>("");
-    const [addressError, setAddressError] = useState<string>("");
     const [phoneError, setPhoneError] = useState<string>("");
 
     //Biến thông báo
@@ -32,7 +28,6 @@ function RegisterAccount() {
         setPasswordError("");
         setEmailError("");
         setFullnameError("");
-        setAddressError("");
         setPhoneError("");
         setMessage("");
 
@@ -43,11 +38,10 @@ function RegisterAccount() {
         const isPasswordValid = await checkPassword(password);
         const isEmailValid = !await checkEmailexists(email);
         const isFullnameValid = checkFullname(fullname);
-        const isAddressValid = checkAddress(address);
         const isPhoneValid = checkPhone(phone);
 
         //Kiểm tra điều kiện
-        if (isUsernameValid && isPasswordValid && isEmailValid && isFullnameValid && isAddressValid && isPhoneValid) {
+        if (isUsernameValid && isPasswordValid && isEmailValid && isFullnameValid && isPhoneValid) {
             //Gửi dữ liệu lên server
             const url = "http://localhost:8888/account/register";
 
@@ -58,9 +52,7 @@ function RegisterAccount() {
                 password: password,
                 email: email,
                 fullName: fullname,
-                address: address,
                 phone: phone,
-                gender: gender.toString(),
             }
             try {
                 const response = await fetch(url, {
@@ -183,25 +175,6 @@ function RegisterAccount() {
         checkFullname(e.target.value);
     }
 
-    const checkAddress = (address: string) => {
-        if (address.length === 0) {
-            setAddressError("Địa chỉ không được để trống");
-            return false;
-        } else {
-            setAddressError("");
-            return true;
-        }
-    }
-
-    const handleAdress = (e: React.ChangeEvent<HTMLInputElement>) => {
-        //Thay đổi giá trị của address
-        setAddress(e.target.value);
-
-        //Kiểm tra address
-        setAddressError("");
-        checkAddress(e.target.value);
-    }
-
     const checkPhone = (phone: string) => {
 
         const phoneRegex = /(84|0[3|5|7|8|9])+([0-9]{8})\b/;
@@ -223,19 +196,11 @@ function RegisterAccount() {
         checkPhone(e.target.value);
     }
 
-    const handleGender = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setGender(parseInt(e.target.value));
-    }
-
-    const handleRole = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setRole(parseInt(e.target.value));
-    }
-
     return (
         <Container className="border border-primary rounded-5 mt-5 bg-dark rounded" fluid="md" style={{width: '650px'}}>
             <h1 className="mt-5 text-center text-light">Đăng ký</h1>
             <div className="mb-3 col-md-6 col-12 mx-auto">
-                <Form onClick={handleSubmit} className="form">
+                <Form className="form">
                     <div className="form-row align-items-center">
                     <div className="mb-3">
                         <label htmlFor="username" className="form-label justify-content-start text-light">Tên đăng nhập:</label>
@@ -258,39 +223,12 @@ function RegisterAccount() {
                         <div style={{ color: "red" }}>{fullnameError}</div>
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="address" className="form-label text-light">Địa chỉ:</label>
-                        <input type="text" id="address" className="form-control" value={address} onChange={handleAdress} />
-                        <div style={{ color: "red" }}>{addressError}</div>
-                    </div>
-                    <div className="mb-3">
                         <label htmlFor="phone" className="form-label text-light">Điện thoại:</label>
                         <input type="text" id="phone" className="form-control" value={phone} onChange={handlePhone} />
                         <div style={{ color: "red" }}>{phoneError}</div>
                     </div>
-                    <div className="mb-3">
-                        <div className="row align-items-center">
-                            <div className="col-6">
-                                <label htmlFor="gender" className="form-label text-light">
-                                    Giới tính:
-                                </label>
-                                <select className="form-select form-control" value={gender} onChange={handleGender}>
-                                    <option value={1}>Nam</option>
-                                    <option value={0}>Nữ</option>
-                                </select>
-                            </div>
-                            <div className="col-6">
-                                <label htmlFor="role" className="form-label text-light">
-                                    Bạn là:
-                                </label>
-                                <select className="form-select form-control" value={role} onChange={handleRole}>
-                                    <option value={1}>Học sinh</option>
-                                    <option value={0}>Phụ huynh</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
                     <div className="text-center">
-                        <button type="submit" className="btn btn-primary">Đăng ký</button>
+                        <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Đăng ký</button>
                         <div style={{ color: "green" }}>
                             {message}
                         </div>
