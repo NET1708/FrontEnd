@@ -1,5 +1,4 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
 
 export const createCartOrder = (cartData: any[]) => {
   const url = "http://localhost:8888/order/create/cart";

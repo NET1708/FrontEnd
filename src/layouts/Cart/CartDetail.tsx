@@ -32,8 +32,7 @@ const OrderData: React.FC = () => {
   };
 
   const handleDeleteClick = (orderId: string) => {
-    console.log(`Delete button clicked for order ID: ${orderId}`);
-    // TODO: Implement delete functionality for the specific order
+    history(`/cart/delete?orderId=${orderId}`);
   };
 
   if (orderDataList.length === 0) {
@@ -66,6 +65,9 @@ const OrderData: React.FC = () => {
                 </button>
                 <button onClick={() => handleDeleteClick(orderData.orderId)}>
                   Delete
+                </button>
+                <button onClick={() => handleDeleteClick(orderData.orderId)}>
+                  Buy
                 </button>
               </td>
             </tr>
