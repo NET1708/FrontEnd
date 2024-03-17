@@ -72,6 +72,8 @@ const CourseDetail: React.FC = () => {
         alignItems: "center",
     };
 
+    const orderCode = localStorage.getItem('orderCode');
+
     const generateQRCodeData = async (course_amount: number, Info: string) => {
         const accountNo = '0948190073';
         const accountName = 'PHAM QUANG QUY PHUONG';
@@ -84,7 +86,7 @@ const CourseDetail: React.FC = () => {
         setAddInfo(addInfo);
     };
 
-    generateQRCodeData(course_amount, Info);
+    generateQRCodeData(course_amount, orderCode? orderCode : '');
 
     const [chapters, setChapters] = useState<ChapterModel[]>([]);
     useEffect(() => {
