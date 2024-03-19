@@ -3,7 +3,7 @@ import axios, { AxiosRequestConfig } from "axios";
 import { useNavigate } from "react-router-dom";
 import OrderResponse from "../../models/OrderResponse";
 const OrderData: React.FC = () => {
-  const [orderDataList, setOrderDataList] = useState<OrderResponse[]>([]);
+  const [orderData, setOrderData] = useState<OrderResponse>();
   const history = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
@@ -14,11 +14,11 @@ const OrderData: React.FC = () => {
           },
         };
 
-        const response = await axios.get<OrderResponse[]>(
+        const response = await axios.get<OrderResponse>(
           "http://localhost:8888/order/get-cart",
           config
         );
-        setOrderDataList(response.data);
+        setOrderData(response.data);
       } catch (error) {
         console.error(error);
       }
@@ -35,7 +35,7 @@ const OrderData: React.FC = () => {
     history(`/cart/delete?orderId=${orderId}`);
   };
 
-  if (orderDataList.length === 0) {
+  if (orderData === null) {
     return <div>Loading...</div>;
   }
 
@@ -52,8 +52,9 @@ const OrderData: React.FC = () => {
             <th>Action</th>
           </tr>
         </thead>
+
         <tbody>
-          {orderDataList.map((orderData) => (
+          {orderData && (
             <tr key={orderData.orderId}>
               <td>{orderData.orderId}</td>
               <td>{orderData.createdAt}</td>
@@ -71,7 +72,7 @@ const OrderData: React.FC = () => {
                 </button>
               </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>

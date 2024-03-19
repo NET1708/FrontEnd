@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const createCartOrder = (cartData: any[]) => {
+export const createCartOrder = (cartData: any) => {
   const url = "http://localhost:8888/order/create/cart";
 
   const config = {

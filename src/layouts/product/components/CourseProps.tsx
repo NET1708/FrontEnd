@@ -42,12 +42,10 @@ const CourseProps: React.FC<CoursePropsInterface> = (props) => {
     <SyncLoader className="carouselcss" style={carouselcss} color="#36d7b7" />;
   }
   const handleAddToCart = (courseId: number) => {
-    const cartDataList = [
-      { courseID: courseId },
-      // Add more cart data objects as needed
-    ];
+    const cartData = { courseID: courseId };
+    // Add more cart data objects as needed
 
-    createCartOrder(cartDataList)
+    createCartOrder(cartData)
       .then((response) => {
         console.log("Cart order created:", response);
       })

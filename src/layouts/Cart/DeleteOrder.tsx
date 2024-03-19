@@ -30,7 +30,6 @@ const DeleteOrder: React.FC = () => {
       };
 
       await axios.post("http://localhost:8888/order/delete", body, config);
-      console.log("Order deleted successfully");
       navigate("/cart");
     } catch (error) {
       console.error("Error deleting order:", error);
