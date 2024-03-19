@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Container } from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
 import { useMediaQuery } from "react-responsive";
+import Swal from "sweetalert2";
 function RegisterAccount() {
 
     const [username, setUsername] = useState<string>("");
@@ -66,7 +67,15 @@ function RegisterAccount() {
                 });
 
                 if(response.ok){
-                    setMessage("Đăng ký thành công, vui lòng kiểm tra email để kích hoạt!");
+                    Swal.fire({
+                        title: "Đăng ký thành công",
+                        text: "Vui lòng kiểm tra email để kích hoạt tài khoản",
+                        icon: "success",
+                    }).then((response) => {
+                        if(response.isConfirmed){
+                            window.location.href = "/login";
+                        }
+                    });
                 }else{
                     console.log(response.json());
                     setMessage("Đã xảy ra lỗi trong quá trình đăng ký tài khoản.")
