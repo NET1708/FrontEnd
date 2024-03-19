@@ -43,6 +43,14 @@ function Navbar({ searchKey, setKey }: NavbarInterface) {
     fetchData();
   }, []);
 
+  //get token
+  const token = localStorage.getItem("token");
+
+  const handlelogout = () => {
+    localStorage.removeItem("token");
+    //navigate to home page
+    window.location.href = "/";
+  };
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
@@ -137,13 +145,55 @@ function Navbar({ searchKey, setKey }: NavbarInterface) {
         </ul>
 
         {/* Biểu tượng đăng nhập */}
-        <ul className="navbar-nav me-1">
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/login">
-              <i className="fas fa-user"></i>
-            </NavLink>
-          </li>
-        </ul>
+        {!token ? (
+          <div className="dropdown">
+          <button
+            className="btn btn-secondary dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton1"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i className="fas fa-user"></i>
+          </button>
+          <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+            <li>
+              <a className="dropdown-item" href="/login">
+                Đăng nhập
+              </a>
+            </li>
+            <li>
+              <a className="dropdown-item" href="/register">
+                Đăng ký
+              </a>
+            </li>
+          </ul>
+        </div> 
+        ) : (
+          <div className="dropdown">
+          <button
+            className="btn btn-secondary dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton1"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i className="fas fa-user"></i>
+          </button>
+          <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+            <li>
+              <a className="dropdown-item" href="/profile">
+                Hồ sơ
+              </a>
+            </li>
+            <li>
+              <a className="dropdown-item" href="/logout" onClick={handlelogout}>
+                Đăng xuất
+              </a>
+            </li>
+          </ul>
+          </div>
+        )}
       </div>
     </nav>
   );
