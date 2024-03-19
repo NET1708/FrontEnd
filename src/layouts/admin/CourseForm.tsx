@@ -6,6 +6,8 @@ import ImageUploadComponent from './components/ImageUploadComponent';
 import RequireAdmin from './components/RequireAdmin';
 import Select from 'react-select';
 import { getAllCategories } from '../../api/CategoryAPI';
+import Swal from 'sweetalert2';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
 
 const CourseForm: React.FC = () => {
   const [course, setCourse] = useState({
@@ -36,7 +38,7 @@ const CourseForm: React.FC = () => {
 
   const options = categories;
 
-  const [selectedCategories, setSelectedCategories] = useState<any[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<any>(null);
   const handleCategoriesChange = (selectedCategories: any) => {
     setSelectedCategories(selectedCategories);
   };
@@ -72,7 +74,7 @@ const CourseForm: React.FC = () => {
       courseName: course.courseName,
       description: course.description,
       price: course.price,
-      categories: selectedCategories.map((category) => category.value),
+      categories: selectedCategories ? [selectedCategories.value] : [],
       chapter_content: chapter
     };
     console.log(body_req);
@@ -136,21 +138,22 @@ const CourseForm: React.FC = () => {
       });
 
       if (uploadCourseResponse.ok && uploadChapterResponse.ok) {
-        alert('Thêm khóa học và hình ảnh thành công');
-        setCourse({
-          courseId: 0,
-          courseName: "",
-          description: "",
-          price: 0,
-          averageRating: 0,
+        Swal.fire({
+          title: 'Thành công',
+          text: 'Thêm khóa học và hình ảnh thành công',
+          icon: 'success',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            //react route to homepage
+            window.location.href = '/';
+          }
         });
-        setImages([]);
       } else {
-        alert('Có lỗi xảy ra khi thêm khóa học');
+        Swal.fire('Lỗi', 'Có lỗi xảy ra khi thêm khóa học', 'error');
       }
     } catch (error) {
       console.log('Failed to upload course and images', error);
-      alert('Có lỗi xảy ra khi thêm khóa học hoặc hình ảnh');
+      Swal.fire('Lỗi', 'Có lỗi xảy ra khi thêm khóa học hoặc hình ảnh', 'error');
     }
   }
 
@@ -171,18 +174,14 @@ const CourseForm: React.FC = () => {
                 className='mb-2'
               />
             </Form.Group>
-            <Form.Group controlId="description">
-              <Form.Label><BiCommentDetail /> Thông tin mô tả:</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
-                placeholder="Enter course description"
-                name="description"
-                value={course.description}
-                onChange={handleChange}
-                className='mb-2'
-              />
-            </Form.Group>
+            <CKEditor
+              editor={require('@ckeditor/ckeditor5-build-classic')}
+              data={course.description}
+              onChange={(event: any, editor: any) => {
+                const data = editor.getData();
+                setCourse(prevState => ({ ...prevState, description: data }));
+              }}
+            />
             <Form.Group controlId="price">
               <Form.Label><RiPriceTag3Line /> Giá bán:</Form.Label>
               <Form.Control
@@ -197,7 +196,7 @@ const CourseForm: React.FC = () => {
             <Form.Group controlId="categories">
               <Form.Label><RiPriceTag3Line /> Categories</Form.Label>
               <Select
-                isMulti
+                isMulti={false}
                 name="categories"
                 options={options}
                 value={selectedCategories}
