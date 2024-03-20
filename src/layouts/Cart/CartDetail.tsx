@@ -75,9 +75,11 @@ const OrderData: React.FC = () => {
                   <button onClick={() => handleDeleteClick(order.orderId)}>
                     Delete
                   </button>
-                  <button onClick={() => handleBuyClick(order.orderId)}>
-                    Buy
-                  </button>
+                  {order.status !== 1 && (
+                    <button onClick={() => handleBuyClick(order.orderId)}>
+                      Buy
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}
