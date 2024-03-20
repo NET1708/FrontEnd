@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
 
 const DeleteOrder: React.FC = () => {
   const location = useLocation();
@@ -19,18 +18,23 @@ const DeleteOrder: React.FC = () => {
   const deleteOrder = async (orderId: string) => {
     try {
       const token = localStorage.getItem("token") || "";
+      const url = "https://api.ani-testlab.edu.vn/order/delete";
+
       const config = {
+        method: "POST",
         headers: {
+          "Content-Type": "application/json",
           token: token,
         },
+        body: JSON.stringify({ orderID: orderId }),
       };
 
-      const body = {
-        orderID: orderId,
-      };
-
-      await axios.post("https://api.ani-testlab.edu.vn/order/delete", body, config);
-      navigate("/cart");
+      const response = await fetch(url, config);
+      if (response.ok) {
+        navigate("/cart");
+      } else {
+        throw new Error("Error deleting order");
+      }
     } catch (error) {
       console.error("Error deleting order:", error);
     }

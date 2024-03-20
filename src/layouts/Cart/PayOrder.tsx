@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
 
 const PayOrder: React.FC = () => {
   const location = useLocation();
@@ -19,24 +18,29 @@ const PayOrder: React.FC = () => {
   const payOrder = async (orderId: string) => {
     try {
       const token = localStorage.getItem("token") || "";
+      const url = "https://api.ani-testlab.edu.vn/order/pay";
+
       const config = {
+        method: "POST",
         headers: {
+          "Content-Type": "application/json",
           token: token,
         },
+        body: JSON.stringify({ orderID: orderId }),
       };
 
-      const body = {
-        orderID: orderId,
-      };
-
-      await axios.post("https://api.ani-testlab.edu.vn/order/pay", body, config);
-      navigate("/cart");
+      const response = await fetch(url, config);
+      if (response.ok) {
+        navigate("/cart");
+      } else {
+        throw new Error("Error paying order");
+      }
     } catch (error) {
       console.error("Error paying order:", error);
     }
   };
 
-  return <div>Deleting order...</div>;
+  return <div>Processing payment...</div>;
 };
 
 export default PayOrder;

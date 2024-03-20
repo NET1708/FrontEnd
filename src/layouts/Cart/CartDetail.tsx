@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios, { AxiosRequestConfig } from "axios";
 import { useNavigate } from "react-router-dom";
 import OrderResponse from "../../models/OrderResponse";
 import { colors } from "react-select/dist/declarations/src/theme";
@@ -9,17 +8,22 @@ const OrderData: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const config: AxiosRequestConfig = {
-          headers: {
-            token: localStorage.getItem("token") || "",
-          },
-        };
+        const token = localStorage.getItem("token") || "";
+        const url = "https://api.ani-testlab.edu.vn/order/get-cart";
 
-        const response = await axios.get<OrderResponse[]>(
-          "https://api.ani-testlab.edu.vn/order/get-cart",
-          config
-        );
-        setOrderData(response.data);
+        const response = await fetch(url, {
+          headers: {
+            "Content-Type": "application/json",
+            token: token,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setOrderData(data);
+        } else {
+          throw new Error("Error fetching data");
+        }
       } catch (error) {
         console.error(error);
       }

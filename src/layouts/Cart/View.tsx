@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios, { AxiosRequestConfig } from "axios";
 import { useLocation } from "react-router-dom";
 
 interface OrderDetail {
@@ -50,19 +49,26 @@ const CartView: React.FC = () => {
         const requestBody = {
           orderID: orderId,
         };
-        const config: AxiosRequestConfig = {
+        const config: RequestInit = {
+          method: "POST",
           headers: {
+            "Content-Type": "application/json",
             token: token,
           },
+          body: JSON.stringify(requestBody),
         };
 
-        const response = await axios.post<OrderDetail[]>(
+        const response = await fetch(
           "https://api.ani-testlab.edu.vn/order/get-detail",
-          requestBody,
           config
         );
 
-        setOrderDetails(response.data);
+        if (response.ok) {
+          const data = await response.json();
+          setOrderDetails(data);
+        } else {
+          throw new Error("Request failed");
+        }
       } catch (error) {
         console.error(error);
       }
