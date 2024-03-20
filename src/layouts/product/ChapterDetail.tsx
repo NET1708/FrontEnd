@@ -81,11 +81,11 @@ export const ChapterDetail: React.FC = () => {
                                 ></iframe>
                             </div>
                         </div>
-                    </div>
-                    <div className="mt-auto d-flex justify-content-between align-content-end border border-black mb-5 mt-0">
-                        <button className="btn btn-primary">Previous</button>
-                        <button className="btn btn-primary">Comlete</button>
-                        <button className="btn btn-primary">Next</button>
+                        <div className="mt-auto d-flex justify-content-between align-content-end border border-black mt-0">
+                            <button className="btn btn-primary">Previous</button>
+                            <button className="btn btn-primary">Comlete</button>
+                            <button className="btn btn-primary">Next</button>
+                        </div>
                     </div>
                 </div>
             </div>

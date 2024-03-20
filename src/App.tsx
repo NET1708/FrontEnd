@@ -19,35 +19,149 @@ import DeleteOrder from "./layouts/Cart/DeleteOrder";
 import { ChapterDetail } from "./layouts/product/ChapterDetail";
 import ForgotPassword from './layouts/user/ForgotPassword';
 import PayOrder from "./layouts/Cart/PayOrder";
+import ChapterDetailWrapper from "./layouts/product/components/ChapterDetailWrapper";
 function App() {
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar searchKey={searchKeyword} setKey={setSearchKeyword} />
         <Routes>
-          <Route path="/" element={<HomePage searchKey={searchKeyword} />} />
+          <Route path="/" element={
+            <ChapterDetailWrapper
+              searchKey={searchKeyword}
+              setSearchKey={setSearchKeyword}
+            >
+              <HomePage searchKey={searchKeyword} />
+            </ChapterDetailWrapper>
+          } />
           <Route
             path="/:categoryId"
             element={<HomePage searchKey={searchKeyword} />}
           />
-          <Route path="/course/:courseId" element={<CourseDetail />} />
-          <Route path="/register" element={<RegisterAccount />} />
-          <Route path="/activate/:email/:code" element={<ActivateAccount />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/cart" element={<OrderData />} />
-          <Route path="/cart/view" element={<CartView />} />
-          <Route path="/cart/delete" element={<DeleteOrder />} />
-          <Route path="/cart/pay" element={<PayOrder />} />
-          <Route path="/admin/add-course" element={<CourseForm_Admin />} />
-          <Route path='/admin/add-category' element={<CategoryForm_Admin />} />
-          <Route path="/course/:courseId/chapter/:chapterId" element={<ChapterDetail />} />
-          <Route path="/403-forbidden" element={<Component_403 />} />
-          <Route path="/about" element={<About />} />
-          <Route path='/forgot-password' element={<ForgotPassword/>} />
-          <Route path="/policy" element={<Policy />} />
+          <Route path="/course/:courseId" element={
+          <ChapterDetailWrapper
+            searchKey={searchKeyword}
+            setSearchKey={setSearchKeyword}
+          >
+            <CourseDetail />
+          </ChapterDetailWrapper>
+          } />
+          <Route path="/register" element={
+            <ChapterDetailWrapper
+              searchKey={searchKeyword}
+              setSearchKey={setSearchKeyword}
+            >
+              <RegisterAccount />
+            </ChapterDetailWrapper>
+          } />
+          <Route path="/activate/:email/:code" element={
+            <ChapterDetailWrapper
+              searchKey={searchKeyword}
+              setSearchKey={setSearchKeyword}
+            >
+              <ActivateAccount />
+            </ChapterDetailWrapper>
+          } />
+          <Route path="/login" element={
+            <ChapterDetailWrapper
+              searchKey={searchKeyword}
+              setSearchKey={setSearchKeyword}
+            >
+              <LoginPage />
+            </ChapterDetailWrapper>
+          } />
+          <Route path="/cart" element={
+            <ChapterDetailWrapper
+              searchKey={searchKeyword}
+              setSearchKey={setSearchKeyword}
+            >
+              <OrderData />
+            </ChapterDetailWrapper>
+          } />
+          <Route path="/cart/view" element={
+            <ChapterDetailWrapper
+              searchKey={searchKeyword}
+              setSearchKey={setSearchKeyword}
+            >
+              <CartView />
+            </ChapterDetailWrapper>
+          } />
+          <Route path="/cart/delete" element={
+            <ChapterDetailWrapper
+              searchKey={searchKeyword}
+              setSearchKey={setSearchKeyword}
+            >
+              <DeleteOrder />
+            </ChapterDetailWrapper>
+          } />
+          <Route path="/cart/pay" element={
+            <ChapterDetailWrapper
+              searchKey={searchKeyword}
+              setSearchKey={setSearchKeyword}
+              >
+              <PayOrder />
+              </ChapterDetailWrapper>
+            } />
+          <Route path="/admin/add-course" element={
+            <ChapterDetailWrapper
+              searchKey={searchKeyword}
+              setSearchKey={setSearchKeyword}
+            >
+              <CourseForm_Admin />
+            </ChapterDetailWrapper>
+          } />
+          <Route path='/admin/add-category' element={
+            <ChapterDetailWrapper
+              searchKey={searchKeyword}
+              setSearchKey={setSearchKeyword}
+            >
+              <CategoryForm_Admin />
+            </ChapterDetailWrapper>
+          } />
+          <Route
+            path="/course/:courseId/chapter/:chapterId"
+            element={
+              <ChapterDetailWrapper
+                searchKey={searchKeyword}
+                setSearchKey={setSearchKeyword}
+              >
+                <ChapterDetail />
+              </ChapterDetailWrapper>
+            }
+          />
+          <Route path="/403-forbidden" element={
+            <ChapterDetailWrapper
+              searchKey={searchKeyword}
+              setSearchKey={setSearchKeyword}
+            >
+              <Component_403 />
+            </ChapterDetailWrapper>
+          } />
+          <Route path="/about" element={
+            <ChapterDetailWrapper
+              searchKey={searchKeyword}
+              setSearchKey={setSearchKeyword}
+            >
+              <About />
+            </ChapterDetailWrapper>
+          } />
+          <Route path='/forgot-password' element={
+            <ChapterDetailWrapper
+              searchKey={searchKeyword}
+              setSearchKey={setSearchKeyword}
+            >
+              <ForgotPassword />
+            </ChapterDetailWrapper>
+          } />
+          <Route path="/policy" element={
+            <ChapterDetailWrapper
+              searchKey={searchKeyword}
+              setSearchKey={setSearchKeyword}
+            >
+              <Policy />
+            </ChapterDetailWrapper>
+          } />
         </Routes>
-        <Footer />
       </BrowserRouter>
     </div>
   );
