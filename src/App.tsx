@@ -10,6 +10,7 @@ import Policy from "./layouts/about/Policy";
 import RegisterAccount from "./layouts/user/RegisterAccount";
 import LoginPage from "./layouts/homepage/LoginPage";
 import CourseForm_Admin from "./layouts/admin/CourseForm";
+import CategoryForm_Admin from './layouts/admin/CategoryForm';
 import Component_403 from "./layouts/error/Component_403";
 import ActivateAccount from "./layouts/user/ActivateAccount";
 import OrderData from "./layouts/Cart/CartDetail";
@@ -35,6 +36,7 @@ function App() {
           <Route path="/cart/view" element={<CartView />} />
           <Route path="/cart/delete" element={<DeleteOrder />} />
           <Route path="/admin/add-course" element={<CourseForm_Admin />} />
+          <Route path='/admin/add-category' element={<CategoryForm_Admin />} />
           <Route path="/403-forbidden" element={<Component_403 />} />
           <Route path="/about" element={<About />} />
           <Route path="/policy" element={<Policy />} />
