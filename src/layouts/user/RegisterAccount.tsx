@@ -267,28 +267,6 @@ function RegisterAccount() {
                         <input type="text" id="phone" className="form-control" value={phone} onChange={handlePhone} />
                         <div style={{ color: "red" }}>{phoneError}</div>
                     </div>
-                    <div className="mb-3">
-                        <div className="row align-items-center">
-                            <div className="col-6">
-                                <label htmlFor="gender" className="form-label text-light">
-                                    Giới tính:
-                                </label>
-                                <select className="form-select form-control" value={gender} onChange={handleGender}>
-                                    <option value={1}>Nam</option>
-                                    <option value={0}>Nữ</option>
-                                </select>
-                            </div>
-                            <div className="col-6">
-                                <label htmlFor="role" className="form-label text-light">
-                                    Bạn là:
-                                </label>
-                                <select className="form-select form-control" value={role} onChange={handleRole}>
-                                    <option value={1}>Học sinh</option>
-                                    <option value={0}>Phụ huynh</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
                     <div className="text-center">
                         <button type="submit" className="btn btn-primary">Đăng ký</button>
                         <div style={{ color: "green" }}>

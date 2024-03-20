@@ -12,7 +12,7 @@ import LoginPage from './layouts/homepage/LoginPage';
 import CourseForm_Admin from './layouts/admin/CourseForm';
 import Component_403 from './layouts/error/Component_403';
 import ActivateAccount from './layouts/user/ActivateAccount';
-
+import ForgotPassword from './layouts/user/ForgotPassword';
 function App() {
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   return (
@@ -28,6 +28,7 @@ function App() {
           <Route path='/login' element={<LoginPage />} />
           <Route path='/admin/add-course' element={<CourseForm_Admin />} />
           <Route path='/403-forbidden' element={<Component_403 />} />
+          <Route path='/forgot-password' element={<ForgotPassword/>} />
           <Route path='/about' element={<About/>} />
           <Route path='/policy' element={<Policy/>} />
         </Routes>
