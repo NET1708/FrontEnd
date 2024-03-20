@@ -26,7 +26,7 @@ function ChangePassword() {
         }
 
         // Gửi request đổi mật khẩu đến backend
-        const url = "https://api.ani-testlab.edu.vn/account/changePassword";
+        const url = "http://localhost:8888/account/changePassword";
         const data = {
             email: email,
             newPassword: newPassword

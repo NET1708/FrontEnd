@@ -13,7 +13,7 @@
     "@types/react": "^18.2.60",
     "@types/react-dom": "^18.2.19",
     "aos": "^2.3.4",
-    "https://api.ani-testlab.edu.vn": "^1.6.8",
+    "http://localhost:8888": "^1.6.8",
     "bootstrap": "^5.3.3",
     "jwt-decode": "^4.0.0",
     "react": "^18.2.0",

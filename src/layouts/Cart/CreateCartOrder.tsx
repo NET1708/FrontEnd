@@ -1,5 +1,5 @@
 export const createCartOrder = (cartData: any) => {
-  const url = "https://api.ani-testlab.edu.vn/order/create/cart";
+  const url = "http://localhost:8888/order/create/cart";
   const token = localStorage.getItem("token") || "";
 
   const config = {

@@ -18,7 +18,7 @@ const DeleteOrder: React.FC = () => {
   const deleteOrder = async (orderId: string) => {
     try {
       const token = localStorage.getItem("token") || "";
-      const url = "https://api.ani-testlab.edu.vn/order/delete";
+      const url = "http://localhost:8888/order/delete";
 
       const config = {
         method: "POST",

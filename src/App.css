@@ -285,3 +285,68 @@
   max-height: calc(100vh); /* Giảm đi chiều cao của các phần tử khác như header, footer, ... nếu có */
   overflow-y: auto;
 }
+
+/* Đối với màn hình nhỏ hơn 768px */
+@media (max-width: 767.98px) {
+  .chapter-list {
+    /* Ẩn danh sách chương trình học trên màn hình nhỏ */
+    display: none;
+  }
+
+  .col-9 {
+    /* Chiếm toàn bộ chiều rộng khi ẩn danh sách chương trình học */
+    width: 100%;
+  }
+
+  .col-12 h1 {
+    /* Điều chỉnh kích thước tiêu đề trên màn hình nhỏ */
+    font-size: 1.5rem;
+  }
+
+  iframe {
+    /* Điều chỉnh chiều cao video trên màn hình nhỏ */
+    height: 300px;
+  }
+
+  .btn {
+    /* Điều chỉnh kích thước nút trên màn hình nhỏ */
+    font-size: 0.8rem;
+    padding: 0.5rem;
+  }
+}
+
+/* Đối với màn hình từ 768px đến 991.98px */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .chapter-list {
+    /* Giảm kích thước danh sách chương trình học trên màn hình vừa */
+    width: 25%;
+  }
+
+  .col-9 {
+    /* Tăng kích thước vùng chứa video và nút điều khiển */
+    width: 75%;
+  }
+
+  iframe {
+    /* Điều chỉnh chiều cao video trên màn hình vừa */
+    height: 400px;
+  }
+}
+
+/* Đối với màn hình từ 992px trở lên */
+@media (min-width: 992px) {
+  .chapter-list {
+    /* Đặt lại kích thước danh sách chương trình học trên màn hình lớn */
+    width: 25%;
+  }
+
+  .col-9 {
+    /* Đặt lại kích thước vùng chứa video và nút điều khiển */
+    width: 75%;
+  }
+
+  iframe {
+    /* Đặt lại chiều cao video trên màn hình lớn */
+    height: 500px;
+  }
+}

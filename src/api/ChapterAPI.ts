@@ -5,7 +5,7 @@ export async function getAllChapter(course_id: number): Promise<ChapterModel[]> 
     const result: ChapterModel[] = [];
 
     //Get request
-    const url = `https://api.ani-testlab.edu.vn/chapter/search/findByCourse_courseId?courseId=${course_id}`;
+    const url = `http://localhost:8888/chapter/search/findByCourse_courseId?courseId=${course_id}`;
     //Get data
     const response = await my_request(url);
     //Convert data to model
@@ -23,7 +23,7 @@ export async function getAllChapter(course_id: number): Promise<ChapterModel[]> 
 }
 
 export async function getChapter(courseId: number, chapterId: number): Promise<ChapterModel|null> {
-    const url = `https://api.ani-testlab.edu.vn/chapter/search/findByCourse_CourseIdAndChapterId?courseId=${courseId}&chapterId=${chapterId}`;
+    const url = `http://localhost:8888/chapter/search/findByCourse_CourseIdAndChapterId?courseId=${courseId}&chapterId=${chapterId}`;
     const response = await my_request(url);
     return {
         chapterId: response.chapterId,

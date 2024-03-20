@@ -9,7 +9,7 @@ const OrderData: React.FC = () => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem("token") || "";
-        const url = "https://api.ani-testlab.edu.vn/order/get-cart";
+        const url = "http://localhost:8888/order/get-cart";
 
         const response = await fetch(url, {
           headers: {

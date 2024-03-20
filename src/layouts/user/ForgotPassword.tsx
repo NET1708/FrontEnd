@@ -14,7 +14,7 @@ const ForgotPassword = () => {
         setLoading(true);
 
         try {
-            const url = `https://api.ani-testlab.edu.vn/account/forgot-password?email=${email}`;
+            const url = `http://localhost:8888/account/forgot-password?email=${email}`;
             const response = await fetch(url, { method: "POST" });
 
             if (response.ok) {

@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Form, Button, Row, Col } from 'react-bootstrap';
 import { RiUserLine, RiLockPasswordLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
+import { generateOrderCode } from '../utils/generateOrderCode';
 interface JwtPayload {
   isActive: boolean;
 }
@@ -29,7 +30,7 @@ const LoginPage = () => {
 
     //title for page
 
-    fetch('https://api.ani-testlab.edu.vn/account/login', {
+    fetch('http://localhost:8888/account/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -44,16 +45,6 @@ const LoginPage = () => {
       }
     }).then(data => {
       const { jwt } = data;
-      const generateOrderCode = () => {
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        let result = '';
-        const charactersLength = characters.length;
-        for (let i = 0; i < 6; i++) {
-          result += characters.charAt(Math.floor(Math.random() * charactersLength));
-        }
-        return result;
-      };
-
       const orderCode = generateOrderCode();
       localStorage.setItem('orderCode', orderCode);
       // Save token to local storage or cookie

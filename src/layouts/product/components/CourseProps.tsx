@@ -6,6 +6,8 @@ import { SyncLoader } from "react-spinners";
 import { Link } from "react-router-dom";
 import renderRating from "../../utils/RenderRating";
 import { createCartOrder } from "../../Cart/CreateCartOrder";
+import { getAllEnrolledCourses } from "../../../api/CourseAPI";
+import { ProgressBar } from "react-bootstrap";
 interface CoursePropsInterface {
   course: CourseModel;
 }
@@ -16,6 +18,7 @@ const CourseProps: React.FC<CoursePropsInterface> = (props) => {
   const [images, setImages] = useState<ImageModel[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState(null);
+  const [listEnroll, setListEnroll] = useState<CourseModel[]>([]);
   const carouselcss = {
     // center screen
     display: "flex",
@@ -33,6 +36,14 @@ const CourseProps: React.FC<CoursePropsInterface> = (props) => {
         .catch((error) => {
           setLoading(false);
           setError(error.message);
+        });
+        
+        getAllEnrolledCourses(localStorage.getItem("token")!)
+        .then((data) => {
+            setListEnroll(data!);
+        })
+        .catch((error) => {
+            console.error("Lỗi khi lấy danh sách khóa học đã tham gia:", error);
         });
     },
     [] //only call 1 time
@@ -104,12 +115,21 @@ const CourseProps: React.FC<CoursePropsInterface> = (props) => {
             )}
           </div>
           <div className="col-6 text-end">
-            <button
+            {listEnroll.find((course) => course.courseId === props.course.courseId) ? (
+              <ProgressBar
+                now={100}
+                label="Đã tham gia"
+                variant="success"
+                className="me-4 progress-bar-lg progress-bar-striped"
+              />
+            ) : (
+              <button
               className="btn btn-danger btn-block me-4"
               onClick={handleAddToCartWrapper}
             >
               <i className="fas fa-shopping-cart"></i>
             </button>
+            )}
           </div>
         </div>
       </div>

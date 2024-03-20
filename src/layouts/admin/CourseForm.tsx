@@ -79,7 +79,7 @@ const CourseForm: React.FC = () => {
     };
     console.log(body_req);
     try {
-      const uploadCourseResponse = await fetch('https://api.ani-testlab.edu.vn/course/add', {
+      const uploadCourseResponse = await fetch('http://localhost:8888/course/add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -108,7 +108,7 @@ const CourseForm: React.FC = () => {
 
       for (const image of images) {
         const base64Data = await getBase64(image);
-        const response = await fetch('https://api.ani-testlab.edu.vn/image/add', {
+        const response = await fetch('http://localhost:8888/images/add', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -128,7 +128,7 @@ const CourseForm: React.FC = () => {
         return url.split('=')[1];
       }
       const url_id = handleUrl(chapter);
-      const uploadChapterResponse = await fetch('https://api.ani-testlab.edu.vn/playlist/videos', {
+      const uploadChapterResponse = await fetch('http://localhost:8888/playlist/videos', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
