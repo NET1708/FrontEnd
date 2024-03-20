@@ -17,7 +17,7 @@ import ChapterModel from "../../models/ChapterModel";
 const CourseDetail: React.FC = () => {
     //Lấy courseId từ URL
     const { courseId } = useParams();
-
+    const [paymentSuccess, setPaymentSuccess] = useState(false);
     const [show, setShow] = useState(false);
     const [imageUrl, setImageUrl] = useState('');
     const [addInfo, setAddInfo] = useState('');
@@ -90,6 +90,26 @@ const CourseDetail: React.FC = () => {
 
     const [chapters, setChapters] = useState<ChapterModel[]>([]);
     useEffect(() => {
+        const pollOrderStatus = () => {
+            const token = localStorage.getItem("token");
+            const pollingInterval = setInterval(() => {
+                fetch(`/handle-payment?orderID=${orderCode}&courseID=${courseIdNumber}&token=${token}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data === "success") {
+                            // Order has been successfully paid
+                            setPaymentSuccess(true);
+                            setShow(false);
+                            clearInterval(pollingInterval);
+                        }
+                    })
+                    .catch(error => console.error('Error polling order status:', error));
+            }, 1000); // Poll every 5 seconds
+        };
+        
+    
+        // Call the function to start polling for order status
+        pollOrderStatus();
         getAllChapter(courseIdNumber)
             .then((data) => {
                 setChapters(data);
@@ -229,6 +249,21 @@ const CourseDetail: React.FC = () => {
                         </div>
                     </div>
                 </div>
+                {paymentSuccess && (
+                <Modal show={paymentSuccess} onHide={() => setPaymentSuccess(false)} centered>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Thanh toán thành công</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <p>Thanh toán đã được xử lý thành công.</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={() => setPaymentSuccess(false)}>
+                            Đóng
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+            )}
                 <div className="col-md-7">
                     <div className="producttab">
                         <div className="tabsslider">
