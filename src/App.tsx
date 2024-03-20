@@ -15,6 +15,7 @@ import ActivateAccount from "./layouts/user/ActivateAccount";
 import OrderData from "./layouts/Cart/CartDetail";
 import CartView from "./layouts/Cart/View";
 import DeleteOrder from "./layouts/Cart/DeleteOrder";
+import PayOrder from "./layouts/Cart/PayOrder";
 function App() {
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route path="/cart" element={<OrderData />} />
           <Route path="/cart/view" element={<CartView />} />
           <Route path="/cart/delete" element={<DeleteOrder />} />
+          <Route path="/cart/pay" element={<PayOrder />} />
           <Route path="/admin/add-course" element={<CourseForm_Admin />} />
           <Route path="/403-forbidden" element={<Component_403 />} />
           <Route path="/about" element={<About />} />
