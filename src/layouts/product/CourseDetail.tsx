@@ -124,7 +124,7 @@ const CourseDetail: React.FC = () => {
         const pollOrderStatus = () => {
             const token = localStorage.getItem("token");
             const interval = setInterval(() => {
-                fetch(`http://localhost:8888/order/handle-payment?orderID=${orderCode}&courseID=${courseIdNumber}&token=${token}`, {
+                fetch(`https://api.ani-testlab.edu.vn/order/handle-payment?orderID=${orderCode}&courseID=${courseIdNumber}&token=${token}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",

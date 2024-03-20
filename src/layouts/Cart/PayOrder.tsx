@@ -18,7 +18,7 @@ const PayOrder: React.FC = () => {
   const payOrder = async (orderId: string) => {
     try {
       const token = localStorage.getItem("token") || "";
-      const url = "http://localhost:8888/order/pay";
+      const url = "https://api.ani-testlab.edu.vn/order/pay";
 
       const config = {
         method: "POST",

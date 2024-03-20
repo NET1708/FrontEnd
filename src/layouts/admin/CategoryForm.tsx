@@ -39,7 +39,7 @@ const CategoryForm: React.FC = () => {
       e.preventDefault();
       const token = localStorage.getItem('token');     
       try {
-        const uploadCategoryResponse = await fetch('http://localhost:8888/category', {
+        const uploadCategoryResponse = await fetch('https://api.ani-testlab.edu.vn/category', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

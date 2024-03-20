@@ -69,7 +69,7 @@ const CartView: React.FC = () => {
         };
 
         const response = await fetch(
-          "http://localhost:8888/order/get-detail",
+          "https://api.ani-testlab.edu.vn/order/get-detail",
           config
         );
 
@@ -92,7 +92,7 @@ const CartView: React.FC = () => {
       const requestBody = {
         courseID: courseID,
       };
-      const response = await fetch("http://localhost:8888/images/get", {
+      const response = await fetch("https://api.ani-testlab.edu.vn/images/get", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
