@@ -21,3 +21,13 @@ export async function getAllChapter(course_id: number): Promise<ChapterModel[]> 
 
     return result;
 }
+
+export async function getChapter(courseId: number, chapterId: number): Promise<ChapterModel|null> {
+    const url = `http://localhost:8888/chapter/search/findByCourse_CourseIdAndChapterId?courseId=${courseId}&chapterId=${chapterId}`;
+    const response = await my_request(url);
+    return {
+        chapterId: response.chapterId,
+        chapterName: response.chapterName,
+        chapterContent: response.chapterContent,
+    };
+}

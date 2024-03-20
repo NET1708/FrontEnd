@@ -274,3 +274,8 @@
   background-color: white;
   color: blue; /* Thay đổi màu chữ khi active nếu cần */
 }
+
+.chapter-list {
+  max-height: calc(100vh); /* Giảm đi chiều cao của các phần tử khác như header, footer, ... nếu có */
+  overflow-y: auto;
+}

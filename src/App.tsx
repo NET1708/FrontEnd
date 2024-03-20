@@ -16,6 +16,7 @@ import ActivateAccount from "./layouts/user/ActivateAccount";
 import OrderData from "./layouts/Cart/CartDetail";
 import CartView from "./layouts/Cart/View";
 import DeleteOrder from "./layouts/Cart/DeleteOrder";
+import { ChapterDetail } from "./layouts/product/ChapterDetail";
 function App() {
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path="/cart/delete" element={<DeleteOrder />} />
           <Route path="/admin/add-course" element={<CourseForm_Admin />} />
           <Route path='/admin/add-category' element={<CategoryForm_Admin />} />
+          <Route path="/course/:courseId/chapter/:chapterId" element={<ChapterDetail />} />
           <Route path="/403-forbidden" element={<Component_403 />} />
           <Route path="/about" element={<About />} />
           <Route path="/policy" element={<Policy />} />
