@@ -19,12 +19,12 @@ import DeleteOrder from "./layouts/Cart/DeleteOrder";
 import { ChapterDetail } from "./layouts/product/ChapterDetail";
 import ForgotPassword from './layouts/user/ForgotPassword';
 import PayOrder from "./layouts/Cart/PayOrder";
+import ChapterDetailWrapper from "./layouts/product/components/ChapterDetailWrapper";
 function App() {
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar searchKey={searchKeyword} setKey={setSearchKeyword} />
         <Routes>
           <Route path="/" element={<HomePage searchKey={searchKeyword} />} />
           <Route
@@ -41,13 +41,22 @@ function App() {
           <Route path="/cart/pay" element={<PayOrder />} />
           <Route path="/admin/add-course" element={<CourseForm_Admin />} />
           <Route path='/admin/add-category' element={<CategoryForm_Admin />} />
-          <Route path="/course/:courseId/chapter/:chapterId" element={<ChapterDetail />} />
+          <Route
+            path="/course/:courseId/chapter/:chapterId"
+            element={
+              <ChapterDetailWrapper
+                searchKey={searchKeyword}
+                setSearchKey={setSearchKeyword}
+              >
+                <ChapterDetail />
+              </ChapterDetailWrapper>
+            }
+          />
           <Route path="/403-forbidden" element={<Component_403 />} />
           <Route path="/about" element={<About />} />
           <Route path='/forgot-password' element={<ForgotPassword/>} />
           <Route path="/policy" element={<Policy />} />
         </Routes>
-        <Footer />
       </BrowserRouter>
     </div>
   );
