@@ -37,8 +37,18 @@ interface OrderDetail {
   };
 }
 
+interface ImageData {
+  imageId: number;
+  imageName: string;
+  url: string;
+  imageData: string;
+  course: any;
+  icon: boolean;
+}
+
 const CartView: React.FC = () => {
   const [orderDetails, setOrderDetails] = useState<OrderDetail[]>([]);
+  const [imageData, setImageData] = useState<ImageData>();
   const location = useLocation();
 
   useEffect(() => {
@@ -77,31 +87,64 @@ const CartView: React.FC = () => {
     fetchOrderDetails();
   }, [location.search]);
 
+  const fetchImageData = async (courseID: number) => {
+    try {
+      const requestBody = {
+        courseID: courseID,
+      };
+      const response = await fetch("http://localhost:8080/images/get", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      if (response.ok) {
+        const imageData = await response.json();
+        return imageData;
+      } else {
+        throw new Error("Request failed");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   if (orderDetails.length === 0) {
     return <div>Loading...</div>;
   }
-  console.log(orderDetails);
+
   return (
     <div>
       <h2>Order Details</h2>
       <table className="table">
         <thead>
           <tr>
+            <th></th>
             <th>Course Name</th>
-            <th>Description</th>
             <th>Rating</th>
             <th>Price</th>
           </tr>
         </thead>
         <tbody>
-          {orderDetails.map((orderDetail) => (
-            <tr key={orderDetail.orderDetailId}>
-              <td>{orderDetail.course?.courseName}</td>
-              <td>{orderDetail.course?.description}</td>
-              <td>{orderDetail.course?.averageRating}</td>
-              <td>{orderDetail.price}</td>
-            </tr>
-          ))}
+          {orderDetails.map((orderDetail) => {
+            fetchImageData(orderDetail.course.courseId);
+            return (
+              <tr key={orderDetail.orderDetailId}>
+                <td>
+                  {imageData ? (
+                    <img src={imageData.imageData} alt="Course" />
+                  ) : (
+                    "No Image"
+                  )}
+                </td>
+                <td>{orderDetail.course?.courseName}</td>
+                <td>{orderDetail.course?.averageRating}</td>
+                <td>{orderDetail.price}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
