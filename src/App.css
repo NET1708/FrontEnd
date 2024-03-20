@@ -1,9 +1,14 @@
 .App {
   text-align: center;
   /* set family */
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Times New Roman", Times, serif;
 }
-
+.waiting {
+  color: red;
+}
+.bought {
+  color: green;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -56,10 +61,11 @@
 .b-example-divider {
   width: 100%;
   height: 3rem;
-  background-color: rgba(0, 0, 0, .1);
-  border: solid rgba(0, 0, 0, .15);
+  background-color: rgba(0, 0, 0, 0.1);
+  border: solid rgba(0, 0, 0, 0.15);
   border-width: 1px 0;
-  box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+  box-shadow: inset 0 0.5em 1.5em rgba(0, 0, 0, 0.1),
+    inset 0 0.125em 0.5em rgba(0, 0, 0, 0.15);
 }
 
 .b-example-vr {
@@ -69,7 +75,7 @@
 }
 
 .bi {
-  vertical-align: -.125em;
+  vertical-align: -0.125em;
   fill: currentColor;
 }
 
@@ -212,7 +218,7 @@
 
 .price {
   font-size: 1rem;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Times New Roman", Times, serif;
   text-decoration: wavy;
 }
 
@@ -261,12 +267,12 @@
   justify-content: center;
   display: inline-flex;
   flex-wrap: wrap;
-  background-color: #DBE0E9;
+  background-color: #dbe0e9;
   border-radius: 5px;
 }
 
 .nav-pills .nav-link {
-  background-color: #DBE0E9;
+  background-color: #dbe0e9;
   color: black;
 }
 

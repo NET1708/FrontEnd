@@ -18,6 +18,7 @@ import CartView from "./layouts/Cart/View";
 import DeleteOrder from "./layouts/Cart/DeleteOrder";
 import { ChapterDetail } from "./layouts/product/ChapterDetail";
 import ForgotPassword from './layouts/user/ForgotPassword';
+import PayOrder from "./layouts/Cart/PayOrder";
 function App() {
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path="/cart" element={<OrderData />} />
           <Route path="/cart/view" element={<CartView />} />
           <Route path="/cart/delete" element={<DeleteOrder />} />
+          <Route path="/cart/pay" element={<PayOrder />} />
           <Route path="/admin/add-course" element={<CourseForm_Admin />} />
           <Route path='/admin/add-category' element={<CategoryForm_Admin />} />
           <Route path="/course/:courseId/chapter/:chapterId" element={<ChapterDetail />} />

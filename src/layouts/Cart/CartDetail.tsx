@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios, { AxiosRequestConfig } from "axios";
 import { useNavigate } from "react-router-dom";
 import OrderResponse from "../../models/OrderResponse";
+import { colors } from "react-select/dist/declarations/src/theme";
 const OrderData: React.FC = () => {
-  const [orderData, setOrderData] = useState<OrderResponse>();
+  const [orderData, setOrderData] = useState<OrderResponse[]>();
   const history = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
@@ -14,7 +15,7 @@ const OrderData: React.FC = () => {
           },
         };
 
-        const response = await axios.get<OrderResponse>(
+        const response = await axios.get<OrderResponse[]>(
           "http://localhost:8888/order/get-cart",
           config
         );
@@ -33,6 +34,10 @@ const OrderData: React.FC = () => {
 
   const handleDeleteClick = (orderId: string) => {
     history(`/cart/delete?orderId=${orderId}`);
+  };
+
+  const handleBuyClick = (orderId: string) => {
+    history(`/cart/pay?orderId=${orderId}`);
   };
 
   if (orderData === null) {
@@ -54,25 +59,28 @@ const OrderData: React.FC = () => {
         </thead>
 
         <tbody>
-          {orderData && (
-            <tr key={orderData.orderId}>
-              <td>{orderData.orderId}</td>
-              <td>{orderData.createdAt}</td>
-              <td>{orderData.total}</td>
-              <td>{orderData.status}</td>
-              <td>
-                <button onClick={() => handleViewClick(orderData.orderId)}>
-                  View
-                </button>
-                <button onClick={() => handleDeleteClick(orderData.orderId)}>
-                  Delete
-                </button>
-                <button onClick={() => handleDeleteClick(orderData.orderId)}>
-                  Buy
-                </button>
-              </td>
-            </tr>
-          )}
+          {orderData &&
+            orderData.map((order) => (
+              <tr key={order.orderId}>
+                <td>{order.orderId}</td>
+                <td>{order.createdAt}</td>
+                <td>{order.total}</td>
+                <td className={order.status === 0 ? "waiting" : "bought"}>
+                  {order.status === 0 ? "Waiting" : "Bought"}
+                </td>
+                <td>
+                  <button onClick={() => handleViewClick(order.orderId)}>
+                    View
+                  </button>
+                  <button onClick={() => handleDeleteClick(order.orderId)}>
+                    Delete
+                  </button>
+                  <button onClick={() => handleBuyClick(order.orderId)}>
+                    Buy
+                  </button>
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>
