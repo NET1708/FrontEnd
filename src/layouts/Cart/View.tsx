@@ -57,7 +57,7 @@ const CartView: React.FC = () => {
         };
 
         const response = await axios.post<OrderDetail[]>(
-          "http://localhost:8888/order/get-detail",
+          "https://api.ani-testlab.edu.vn/order/get-detail",
           requestBody,
           config
         );

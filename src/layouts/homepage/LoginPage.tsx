@@ -29,7 +29,7 @@ const LoginPage = () => {
 
     //title for page
 
-    fetch('http://localhost:8888/account/login', {
+    fetch('https://api.ani-testlab.edu.vn/account/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

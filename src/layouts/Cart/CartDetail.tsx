@@ -16,7 +16,7 @@ const OrderData: React.FC = () => {
         };
 
         const response = await axios.get<OrderResponse[]>(
-          "http://localhost:8888/order/get-cart",
+          "https://api.ani-testlab.edu.vn/order/get-cart",
           config
         );
         setOrderData(response.data);

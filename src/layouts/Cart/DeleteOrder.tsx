@@ -29,7 +29,7 @@ const DeleteOrder: React.FC = () => {
         orderID: orderId,
       };
 
-      await axios.post("http://localhost:8888/order/delete", body, config);
+      await axios.post("https://api.ani-testlab.edu.vn/order/delete", body, config);
       navigate("/cart");
     } catch (error) {
       console.error("Error deleting order:", error);

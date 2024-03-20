@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const createCartOrder = (cartData: any) => {
-  const url = "http://localhost:8888/order/create/cart";
+  const url = "https://api.ani-testlab.edu.vn/order/create/cart";
 
   const config = {
     headers: {

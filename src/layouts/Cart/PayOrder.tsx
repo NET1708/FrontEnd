@@ -29,7 +29,7 @@ const PayOrder: React.FC = () => {
         orderID: orderId,
       };
 
-      await axios.post("http://localhost:8888/order/pay", body, config);
+      await axios.post("https://api.ani-testlab.edu.vn/order/pay", body, config);
       navigate("/cart");
     } catch (error) {
       console.error("Error paying order:", error);
