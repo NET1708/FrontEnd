@@ -17,6 +17,7 @@ import OrderData from "./layouts/Cart/CartDetail";
 import CartView from "./layouts/Cart/View";
 import DeleteOrder from "./layouts/Cart/DeleteOrder";
 import { ChapterDetail } from "./layouts/product/ChapterDetail";
+import ForgotPassword from './layouts/user/ForgotPassword';
 function App() {
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   return (
@@ -41,6 +42,7 @@ function App() {
           <Route path="/course/:courseId/chapter/:chapterId" element={<ChapterDetail />} />
           <Route path="/403-forbidden" element={<Component_403 />} />
           <Route path="/about" element={<About />} />
+          <Route path='/forgot-password' element={<ForgotPassword/>} />
           <Route path="/policy" element={<Policy />} />
         </Routes>
         <Footer />
