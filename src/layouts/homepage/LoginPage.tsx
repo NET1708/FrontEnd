@@ -111,8 +111,15 @@ const LoginPage = () => {
               </Form.Group>
 
               <Form.Group as={Row} controlId="formBasicCheckbox">
+                {/* Ghi nhớ checkbox */}
                 <Col sm={{ span: 3, offset: 4 }}>
                   <Form.Check type="checkbox" label="Ghi nhớ" data-aos="fade-down-right" />
+                </Col>               
+              </Form.Group>
+              {/* đường link để forgot password */}
+              <Form.Group as={Row}>
+                <Col>
+                  <Link to="/forgot-password" data-aos="zoom-in-up" style={{textDecoration: 'none', justifyContent: 'end'}}>Quên mật khẩu ?</Link>
                 </Col>
               </Form.Group>
 
