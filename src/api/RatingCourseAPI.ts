@@ -22,8 +22,46 @@ async function getRatingCourse(endpoint: string): Promise<RatingCourseModel[]> {
 
     return result;
 }
+export async function createRatingOfOneCourse(courseId: number, token : String ,rating: { rate: number; comment: string }): Promise<RatingCourseModel[]> {
+    // Lấy user_id từ local storage hoặc bất kỳ nguồn nào phù hợp
 
-export async function getAllRatingOfOneCourse(courseId: number): Promise<RatingCourseModel[]> {
+    // Kiểm tra nếu user_id tồn tại
+    if (!token) {
+        throw new Error('User ID not found');
+    }
+
+    // Tạo object rating với userId và courseId
+    const ratingWithUserIdAndCourseId = {
+        ...rating,
+        course: { courseId: courseId },
+    };
+    const queryString = `?course_id=${courseId}&token=${token}`;
+    const endpoint: string = `https://api.ani-testlab.edu.vn/rate/create/Rate${queryString}`;
+    const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            // You might need to include other headers like authorization token etc.
+        },
+        body: JSON.stringify(ratingWithUserIdAndCourseId), // Sử dụng object đã bao gồm user_id và course_id
+    });
+    if (!response.ok) {
+        throw new Error('Failed to create rating');
+    }
+    const createdRating = await response.json();
+
+    // Assuming the response structure is similar to the RatingCourseModel
+    const { rateId, rate, comment } = createdRating;
+    const ratingCourseModel: RatingCourseModel = {
+        rateId: rateId,
+        rate: rate,
+        comment: comment
+    };
+    return [ratingCourseModel];
+}
+
+
+export async function getAllRatingOfOneCourse(courseId: number, ): Promise<RatingCourseModel[]> {
     const result: RatingCourseModel[] = [];
 
     //Detect endpoint
