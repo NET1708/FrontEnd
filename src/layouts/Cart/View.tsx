@@ -92,16 +92,21 @@ const CartView: React.FC = () => {
       const requestBody = {
         courseID: courseID,
       };
-      const response = await fetch("https://api.ani-testlab.edu.vn/images/get", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
+      const response = await fetch(
+        "https://api.ani-testlab.edu.vn/images/get",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestBody),
+        }
+      );
 
       if (response.ok) {
         const imageData = await response.json();
+        setImageData(imageData);
+        console.log(imageData);
         return imageData;
       } else {
         throw new Error("Request failed");
