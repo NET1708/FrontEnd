@@ -187,7 +187,7 @@ function Navbar({ searchKey, setKey }: NavbarInterface) {
               </a>
             </li>
             <li>
-              <a className="dropdown-item" href="/logout" onClick={handlelogout}>
+              <a className="dropdown-item" href="/" onClick={handlelogout}>
                 Đăng xuất
               </a>
             </li>
