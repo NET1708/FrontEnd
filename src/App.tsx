@@ -20,6 +20,8 @@ import { ChapterDetail } from "./layouts/product/ChapterDetail";
 import ForgotPassword from './layouts/user/ForgotPassword';
 import PayOrder from "./layouts/Cart/PayOrder";
 import ChapterDetailWrapper from "./layouts/product/components/ChapterDetailWrapper";
+import UserInfo from "./layouts/user/UserInfor";
+import ChangePassword from "./layouts/user/ChangePassword";
 function App() {
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   return (
@@ -161,6 +163,23 @@ function App() {
               <Policy />
             </ChapterDetailWrapper>
           } />
+          <Route path="/course/:courseId" element={<CourseDetail />} />
+          <Route path="/register" element={<RegisterAccount />} />
+          <Route path="/activate/:email/:code" element={<ActivateAccount />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/cart" element={<OrderData />} />
+          <Route path="/cart/view" element={<CartView />} />
+          <Route path="/cart/delete" element={<DeleteOrder />} />
+          <Route path="/cart/pay" element={<PayOrder />} />
+          <Route path="/admin/add-course" element={<CourseForm_Admin />} />
+          <Route path='/admin/add-category' element={<CategoryForm_Admin />} />
+          <Route path="/course/:courseId/chapter/:chapterId" element={<ChapterDetail />} />
+          <Route path="/403-forbidden" element={<Component_403 />} />
+          <Route path="/about" element={<About />} />
+          <Route path='/forgot-password' element={<ForgotPassword/>} />
+          <Route path="/policy" element={<Policy />} />
+          <Route path="/user-info" element={<UserInfo/>} />
+          <Route path="/change-password" element={<ChangePassword/>} />
         </Routes>
       </BrowserRouter>
     </div>

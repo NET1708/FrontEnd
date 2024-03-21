@@ -182,13 +182,18 @@ function Navbar({ searchKey, setKey }: NavbarInterface) {
           </button>
           <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
             <li>
-              <a className="dropdown-item" href="/profile">
+              <a className="dropdown-item" href="/user-info" >
                 Hồ sơ
               </a>
             </li>
             <li>
               <a className="dropdown-item" href="/" onClick={handlelogout}>
                 Đăng xuất
+              </a>
+            </li>
+            <li>
+              <a className="dropdown-item" href="/change-password" >
+                Đổi mật khẩu
               </a>
             </li>
           </ul>

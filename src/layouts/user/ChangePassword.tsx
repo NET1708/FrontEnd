@@ -1,22 +1,23 @@
 import React, { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 
-function ChangePassword() {
-    const [email, setEmail] = useState("");
-    const [newPassword, setNewPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
-    const [errorMessage, setErrorMessage] = useState("");
-    const [successMessage, setSuccessMessage] = useState("");
 
+interface ChangePasswordProps {}
 
-        //Biến thông báo
-        const [message, setMessage] = useState<string>("");
+const ChangePassword: React.FC = () => {
+    const [email, setEmail] = useState<string>("");
+    const [oldPassword, setOldPassword] = useState<string>("");
+    const [newPassword, setNewPassword] = useState<string>("");
+    const [confirmPassword, setConfirmPassword] = useState<string>("");
+    const [errorMessage, setErrorMessage] = useState<string>("");
+    const [successMessage, setSuccessMessage] = useState<string>("");
 
-        //Title cho trang
-        document.title = "Đổi mật khẩu";
+    // Title cho trang
+    document.title = "Đổi mật khẩu";
 
-        const handleSubmit = async (e: React.FormEvent) => {
+    
 
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         // Kiểm tra mật khẩu mới và xác nhận mật khẩu mới có khớp nhau không
@@ -26,10 +27,12 @@ function ChangePassword() {
         }
 
         // Gửi request đổi mật khẩu đến backend
-        const url = "https://api.ani-testlab.edu.vn/account/changePassword";
+        const url = "http://localhost:8888/account/change-password";
         const data = {
             email: email,
-            newPassword: newPassword
+            oldPassword: oldPassword,
+            newPassword: newPassword,
+            confirmPassword: confirmPassword
         };
 
         try {
@@ -43,6 +46,12 @@ function ChangePassword() {
 
             if (response.ok) {
                 setSuccessMessage("Đổi mật khẩu thành công!");
+                window.location.href = '/login';
+                // Reset form fields
+                setEmail("");
+                setOldPassword("");
+                setNewPassword("");
+                setConfirmPassword("");
             } else {
                 const errorData = await response.json();
                 setErrorMessage(errorData.message || "Đã xảy ra lỗi khi đổi mật khẩu.");
@@ -62,6 +71,11 @@ function ChangePassword() {
                         <Form.Control type="email" placeholder="Nhập email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                     </Form.Group>
 
+                    <Form.Group className="mb-3" controlId="formBasicOldPassword">
+                        <Form.Label className="text-light">Mật khẩu cũ:</Form.Label>
+                        <Form.Control type="password" placeholder="Nhập mật khẩu cũ" value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} required />
+                    </Form.Group>
+
                     <Form.Group className="mb-3" controlId="formBasicNewPassword">
                         <Form.Label className="text-light">Mật khẩu mới:</Form.Label>
                         <Form.Control type="password" placeholder="Nhập mật khẩu mới" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required />
@@ -75,7 +89,7 @@ function ChangePassword() {
                     {errorMessage && <div className="text-danger mb-3">{errorMessage}</div>}
                     {successMessage && <div className="text-success mb-3">{successMessage}</div>}
 
-                    <Button variant="primary" type="submit">
+                    <Button variant="primary" type="submit" href="/logout" onClick={handleSubmit}>
                         Đổi mật khẩu
                     </Button>
                 </Form>
