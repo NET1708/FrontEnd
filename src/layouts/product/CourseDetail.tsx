@@ -279,7 +279,6 @@ const CourseDetail: React.FC = () => {
                             >
                                 <Tab eventKey="introduction" title="Giới thiệu">
                                     <div className="tabcontent h-100">
-                                        <h3>Giới thiệu khóa học</h3>
                                         <div
                                             dangerouslySetInnerHTML={{ __html: course.description! }}
                                         ></div>
@@ -319,11 +318,6 @@ const CourseDetail: React.FC = () => {
                                                 )}
                                             </div>
                                         </div>
-                                    </div>
-                                </Tab>
-                                <Tab eventKey="teacher" title="Giảng viên">
-                                    <div className="tabcontent">
-                                        <h3>Giảng viên</h3>
                                     </div>
                                 </Tab>
                                 <Tab eventKey="review" title="Đánh giá">
