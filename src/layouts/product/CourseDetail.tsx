@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { SyncLoader } from "react-spinners";
-import { Link, useParams } from "react-router-dom";
-import { getCourseById } from "../../api/CourseAPI";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { getAllEnrolledCourses, getCourseById } from "../../api/CourseAPI";
 import CourseModel from "../../models/CourseModel";
-import { Button, Modal, Tab, Tabs } from "react-bootstrap";
+import { Button, Modal, ProgressBar, Tab, Tabs } from "react-bootstrap";
 import CourseImage from "./components/CourseImage";
 import RatingProduct from "./components/RatingProduct";
 import defineNumber from "../utils/defineNumber";
@@ -13,6 +13,7 @@ import { useMediaQuery } from "react-responsive";
 import generateQRCode from "../utils/generateQRCode";
 import { getAllChapter } from "../../api/ChapterAPI";
 import ChapterModel from "../../models/ChapterModel";
+import { generateOrderCode } from "../utils/generateOrderCode";
 
 const CourseDetail: React.FC = () => {
     //Lấy courseId từ URL
@@ -22,9 +23,21 @@ const CourseDetail: React.FC = () => {
     const [imageUrl, setImageUrl] = useState('');
     const [addInfo, setAddInfo] = useState('');
     const isDesktop = useMediaQuery({ minWidth: 992 });
+    const navigate = useNavigate();
+    const [pollingInterval, setPollingInterval] = useState<NodeJS.Timeout | null>(null);
+
+    const [listEnroll, setListEnroll] = useState<CourseModel[]>([]);
+    const [isEnroll, setIsEnroll] = useState<boolean>(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => {
+        //check if user is logged in, if not, redirect to login page
+        const token = localStorage.getItem("token");
+        if (!token) {
+            //redirect to login page
+            navigate("/login");
+            return;
+        }
         setShow(true);
     };
 
@@ -51,6 +64,15 @@ const CourseDetail: React.FC = () => {
     useEffect(() => {
         //Title cho trang
         document.title = "Chi tiết khóa học";
+        getAllEnrolledCourses(localStorage.getItem("token")!)
+            .then((data) => {
+                setListEnroll(data!);
+                setIsEnroll(data!.some((course) => course.courseId === courseIdNumber));
+                console.log(isEnroll);
+            })
+            .catch((error) => {
+                console.error("Lỗi khi lấy danh sách khóa học đã tham gia:", error);
+            });
         getCourseById(courseIdNumber)
             .then((data) => {
                 setCourse(data);
@@ -86,38 +108,61 @@ const CourseDetail: React.FC = () => {
         setAddInfo(addInfo);
     };
 
-    generateQRCodeData(course_amount, orderCode? orderCode : '');
+    generateQRCodeData(course_amount, orderCode ? orderCode : '');
 
     const [chapters, setChapters] = useState<ChapterModel[]>([]);
     useEffect(() => {
-        const pollOrderStatus = () => {
-            const token = localStorage.getItem("token");
-            const pollingInterval = setInterval(() => {
-                fetch(`/handle-payment?orderID=${orderCode}&courseID=${courseIdNumber}&token=${token}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data === "success") {
-                            // Order has been successfully paid
-                            setPaymentSuccess(true);
-                            setShow(false);
-                            clearInterval(pollingInterval);
-                        }
-                    })
-                    .catch(error => console.error('Error polling order status:', error));
-            }, 1000); // Poll every 5 seconds
-        };
-        
-    
-        // Call the function to start polling for order status
-        pollOrderStatus();
         getAllChapter(courseIdNumber)
             .then((data) => {
                 setChapters(data);
             })
             .catch((error) => {
-                console.log("Lỗi khi lấy danh sách chapter", error);
+                console.error("Lỗi khi lấy danh sách chương:", error);
             });
-    }, []);
+    }, [courseIdNumber]);
+    useEffect(() => {
+        const pollOrderStatus = () => {
+            const token = localStorage.getItem("token");
+            const interval = setInterval(() => {
+                fetch(`https://api.ani-testlab.edu.vn/order/handle-payment?orderID=${orderCode}&courseID=${courseIdNumber}&token=${token}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                })
+                    .then((response) => response.text())
+                    .then((data) => {
+                        if (data === "success") {
+                            clearInterval(interval);
+                            setPaymentSuccess(true);
+                            setShow(false);
+                            const orderCode = generateOrderCode();
+                            localStorage.setItem('orderCode', orderCode);
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Error checking order status:", error);
+                    });
+            }, 1000); // Poll every 5 seconds
+
+            setPollingInterval(interval);
+        };
+
+        if (show) {
+            pollOrderStatus();
+        } else {
+            // Clear interval if show is false
+            if (pollingInterval) {
+                clearInterval(pollingInterval);
+            }
+        }
+
+        return () => {
+            if (pollingInterval) {
+                clearInterval(pollingInterval);
+            }
+        };
+    }, [show, orderCode, courseIdNumber]);
 
     if (loading) {
         return (
@@ -154,7 +199,7 @@ const CourseDetail: React.FC = () => {
         const token = localStorage.getItem("token");
         if (!token) {
             //redirect to login page
-            window.location.href = "/login";            
+            window.location.href = "/login";
             return;
         }
         const cartDataList = [
@@ -184,86 +229,92 @@ const CourseDetail: React.FC = () => {
                                     <strong>Giá: {defineNumber(course.price)}</strong>
                                 </span>
                                 <div>
-                                    <Button variant="success" className="btn-join me-2" onClick={handleShow}>
-                                        Tham gia khóa học
-                                    </Button>
-                                    <Modal show={show} onHide={handleClose} centered>
-                                        <Modal.Header closeButton>
-                                            <Modal.Title>Tham gia khóa học</Modal.Title>
-                                        </Modal.Header>
-                                        <Modal.Body>
-                                            {isDesktop ? (
-                                                <div className="d-flex justify-content-around">
-                                                    <div className="qr-code-container">
-                                                        <h5 className="text-center">Quét mã VietQR</h5>
-                                                        <div className="qr-code-wrapper">
-                                                            <img
-                                                                src={imageUrl}
-                                                                alt="VietQR Code"
-                                                                className="img-fluid"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="transfer-info">
-                                                        <h5 className="text-center mb-3">Hoặc chuyển khoản</h5>
-                                                        <p className="mb-1">Chủ tài khoản: PHAM QUANG QUY PHUONG</p>
-                                                        <p className="mb-1">Số tài khoản: 0948190073</p>
-                                                        <p className="mb-1">Ngân hàng: MB BANK</p>
-                                                        <p className="mb-1">Nội dung chuyển: {addInfo}</p>
-                                                    </div>
-                                                </div>
-                                            ) : (
-                                                <div className="d-flex flex-column align-items-center">
-                                                    <div className="qr-code-container mb-3">
-                                                        <h5 className="text-center">Quét mã VietQR</h5>
-                                                        <div className="qr-code-wrapper">
-                                                            <img
-                                                                src={imageUrl}
-                                                                alt="VietQR Code"
-                                                                className="img-fluid"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className="transfer-info">
-                                                        <h5 className="text-center mb-3 mt-4">Hoặc chuyển khoản</h5>
-                                                        <p className="mb-1">Chủ tài khoản: PHAM QUANG QUY PHUONG</p>
-                                                        <p className="mb-1">Số tài khoản: 0948190073</p>
-                                                        <p className="mb-1">Ngân hàng: MB BANK</p>
-                                                        <p className="mb-1">Nội dung chuyển: {addInfo}</p>
-                                                    </div>
-                                                </div>
-                                            )}
-                                        </Modal.Body>
-                                        <Modal.Footer>
-                                            <Button variant="secondary" onClick={handleClose}>
-                                                Đóng
+                                    {isEnroll ? (
+                                        <ProgressBar now={100} label={`Đã tham gia`} />
+                                    ) : (
+                                        <>
+                                            <Button variant="success" className="btn-join me-2" onClick={handleShow}>
+                                                Tham gia khóa học
                                             </Button>
-                                        </Modal.Footer>
-                                    </Modal>
-                                    <Button variant="outline-danger" className="btn-cart" onClick={handleJoin}>
-                                        <i className="fas fa-shopping-cart me-2"></i>
-                                        Thêm vào giỏ hàng
-                                    </Button>
+                                            <Modal show={show} onHide={handleClose} centered>
+                                                <Modal.Header closeButton>
+                                                    <Modal.Title>Tham gia khóa học</Modal.Title>
+                                                </Modal.Header>
+                                                <Modal.Body>
+                                                    {isDesktop ? (
+                                                        <div className="d-flex justify-content-around">
+                                                            <div className="qr-code-container">
+                                                                <h5 className="text-center">Quét mã VietQR</h5>
+                                                                <div className="qr-code-wrapper">
+                                                                    <img
+                                                                        src={imageUrl}
+                                                                        alt="VietQR Code"
+                                                                        className="img-fluid"
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                            <div className="transfer-info">
+                                                                <h5 className="text-center mb-3">Hoặc chuyển khoản</h5>
+                                                                <p className="mb-1">Chủ tài khoản: PHAM QUANG QUY PHUONG</p>
+                                                                <p className="mb-1">Số tài khoản: 0948190073</p>
+                                                                <p className="mb-1">Ngân hàng: MB BANK</p>
+                                                                <p className="mb-1">Nội dung chuyển: {addInfo}</p>
+                                                            </div>
+                                                        </div>
+                                                    ) : (
+                                                        <div className="d-flex flex-column align-items-center">
+                                                            <div className="qr-code-container mb-3">
+                                                                <h5 className="text-center">Quét mã VietQR</h5>
+                                                                <div className="qr-code-wrapper">
+                                                                    <img
+                                                                        src={imageUrl}
+                                                                        alt="VietQR Code"
+                                                                        className="img-fluid"
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                            <div className="transfer-info">
+                                                                <h5 className="text-center mb-3 mt-4">Hoặc chuyển khoản</h5>
+                                                                <p className="mb-1">Chủ tài khoản: PHAM QUANG QUY PHUONG</p>
+                                                                <p className="mb-1">Số tài khoản: 0948190073</p>
+                                                                <p className="mb-1">Ngân hàng: MB BANK</p>
+                                                                <p className="mb-1">Nội dung chuyển: {addInfo}</p>
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                </Modal.Body>
+                                                <Modal.Footer>
+                                                    <Button variant="secondary" onClick={handleClose}>
+                                                        Đóng
+                                                    </Button>
+                                                </Modal.Footer>
+                                            </Modal>
+                                            <Button variant="outline-danger" className="btn-cart" onClick={handleJoin}>
+                                                <i className="fas fa-shopping-cart me-2"></i>
+                                                Thêm vào giỏ hàng
+                                            </Button>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 {paymentSuccess && (
-                <Modal show={paymentSuccess} onHide={() => setPaymentSuccess(false)} centered>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Thanh toán thành công</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <p>Thanh toán đã được xử lý thành công.</p>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={() => setPaymentSuccess(false)}>
-                            Đóng
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
-            )}
+                    <Modal show={paymentSuccess} onHide={() => setPaymentSuccess(false)} centered>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Thanh toán thành công</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <p>Thanh toán đã được xử lý thành công.</p>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={() => setPaymentSuccess(false)}>
+                                Đóng
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
+                )}
                 <div className="col-md-7">
                     <div className="producttab">
                         <div className="tabsslider">
@@ -304,9 +355,17 @@ const CourseDetail: React.FC = () => {
                                                                     </div>
                                                                 </div>
                                                                 <div className="col-4 d-flex justify-content-end">
-                                                                    <Link to={`/course/${course.courseId}/chapter/${chapter.chapterId}`} className="btn btn-primary">
-                                                                        Đăng ký
-                                                                    </Link>
+                                                                    {
+                                                                        isEnroll ? (
+                                                                            <Link to={`/course/${course.courseId}/chapter/${chapter.chapterId}`} className="btn btn-primary">
+                                                                                Học ngay
+                                                                            </Link>
+                                                                        ) : (
+                                                                            <Button variant="primary" disabled>
+                                                                                Học ngay
+                                                                            </Button>
+                                                                        )
+                                                                    }
                                                                 </div>
                                                             </div>
                                                         );
@@ -315,11 +374,6 @@ const CourseDetail: React.FC = () => {
                                                 )}
                                             </div>
                                         </div>
-                                    </div>
-                                </Tab>
-                                <Tab eventKey="teacher" title="Giảng viên">
-                                    <div className="tabcontent">
-                                        <h3>Giảng viên</h3>
                                     </div>
                                 </Tab>
                                 <Tab eventKey="review" title="Đánh giá">

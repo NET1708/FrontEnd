@@ -108,7 +108,7 @@ const CourseForm: React.FC = () => {
 
       for (const image of images) {
         const base64Data = await getBase64(image);
-        const response = await fetch('https://api.ani-testlab.edu.vn/image/add', {
+        const response = await fetch('https://api.ani-testlab.edu.vn/images/add', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

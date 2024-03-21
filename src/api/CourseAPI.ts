@@ -102,3 +102,40 @@ export async function getCourseById(courseId: number): Promise<CourseModel|null>
         return null;
     }
 }
+
+export async function getAllEnrolledCourses(token: string): Promise<CourseModel[]|null> {
+
+        const endpoint:string = `https://api.ani-testlab.edu.vn/order/list-enroll?token=${token}`;
+
+        try {
+
+            const response = await fetch(endpoint);
+
+            if(!response.ok) {
+                throw new Error(`Lỗi khi lấy dữ liệu từ ${endpoint}`);
+            }
+
+            //Get data
+            const res = await response.json();
+            const data = res.body;
+
+            const result: CourseModel[] = [];
+
+            for(const key in data) {
+                result.push({
+                    courseId: data[key].courseId,
+                    courseName: data[key].courseName,
+                    description: data[key].description,
+                    price: data[key].price,
+                    amount: data[key].amount,
+                    averageRating: data[key].averageRating
+                });
+            }
+
+            return result;
+        }
+        catch (error) {
+            console.log(error);
+            return null;
+        }
+}
