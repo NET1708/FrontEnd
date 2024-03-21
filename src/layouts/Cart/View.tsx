@@ -43,12 +43,14 @@ interface ImageData {
   url: string;
   imageData: string;
   course: any;
-  icon: boolean;
+  isIcon: boolean;
 }
 
 const CartView: React.FC = () => {
   const [orderDetails, setOrderDetails] = useState<OrderDetail[]>([]);
-  const [imageData, setImageData] = useState<ImageData>();
+  const [imageDataMap, setImageDataMap] = useState<Map<number, ImageData>>(
+    new Map()
+  );
   const location = useLocation();
 
   useEffect(() => {
@@ -105,8 +107,6 @@ const CartView: React.FC = () => {
 
       if (response.ok) {
         const imageData = await response.json();
-        setImageData(imageData);
-        console.log(imageData);
         return imageData;
       } else {
         throw new Error("Request failed");
@@ -115,6 +115,21 @@ const CartView: React.FC = () => {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    const loadImageData = async () => {
+      for (const orderDetail of orderDetails) {
+        const imageData = await fetchImageData(orderDetail.course.courseId);
+        if (imageData) {
+          setImageDataMap((prevImageDataMap) =>
+            new Map(prevImageDataMap).set(orderDetail.orderDetailId, imageData)
+          );
+        }
+      }
+    };
+
+    loadImageData();
+  }, [orderDetails]);
 
   if (orderDetails.length === 0) {
     return <div>Loading...</div>;
@@ -133,23 +148,28 @@ const CartView: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {orderDetails.map((orderDetail) => {
-            fetchImageData(orderDetail.course.courseId);
-            return (
-              <tr key={orderDetail.orderDetailId}>
-                <td>
-                  {imageData ? (
-                    <img src={imageData.imageData} alt="Course" />
-                  ) : (
-                    "No Image"
-                  )}
-                </td>
-                <td>{orderDetail.course?.courseName}</td>
-                <td>{orderDetail.course?.averageRating}</td>
-                <td>{orderDetail.price}</td>
-              </tr>
-            );
-          })}
+          {orderDetails.map((orderDetail) => (
+            <tr key={orderDetail.orderDetailId}>
+              <td>
+                {imageDataMap.has(orderDetail.orderDetailId) ? (
+                  <img
+                    src={imageDataMap.get(orderDetail.orderDetailId)?.imageData}
+                    alt="Course"
+                    style={{ width: "200px", height: "100px" }}
+                  />
+                ) : (
+                  "No Image"
+                )}
+              </td>
+              <td style={{ paddingTop: "50px" }}>
+                {orderDetail.course?.courseName}
+              </td>
+              <td style={{ paddingTop: "50px" }}>
+                {orderDetail.course?.averageRating}
+              </td>
+              <td style={{ paddingTop: "50px" }}>{orderDetail.price}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
