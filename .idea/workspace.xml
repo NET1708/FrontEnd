@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="bb1c5afb-d99e-4999-8226-9b04f3799cb1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/layouts/header-footer/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/header-footer/Navbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/layouts/homepage/components/Banner.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/homepage/components/Banner.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/layouts/utils/StarRatingComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/RatingCourseAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/RatingCourseAPI.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layouts/product/CourseDetail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/product/CourseDetail.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layouts/utils/generateQRCode.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/utils/generateQRCode.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,9 +21,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2dSZ9xjqNiKGNhJe09D7Et3g4M2" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -31,9 +33,11 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "dev",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Users\\MY MSI\\Documents\\GitHub\\FrontEnd\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
