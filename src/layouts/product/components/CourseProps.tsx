@@ -115,7 +115,7 @@ const CourseProps: React.FC<CoursePropsInterface> = (props) => {
             )}
           </div>
           <div className="col-6 text-end">
-            {listEnroll.find((course) => course.courseId === props.course.courseId) ? (
+            {listEnroll && listEnroll.find((course) => course.courseId === props.course.courseId) ? (
               <ProgressBar
                 now={100}
                 label="Đã tham gia"
