@@ -287,7 +287,6 @@ const CourseDetail: React.FC = () => {
                                 </Tab>
                                 <Tab eventKey="curriculum" title="Nội dung">
                                     <div className="tabcontent">
-                                        <h3>Nội dung khóa học</h3>
                                         <div className="chapter-container">
                                             <div className="chapter-content bg-light rounded-bottom p-3">
                                                 {chapters.length === 0 ? (

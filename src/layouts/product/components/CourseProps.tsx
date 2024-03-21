@@ -8,6 +8,7 @@ import renderRating from "../../utils/RenderRating";
 import { createCartOrder } from "../../Cart/CreateCartOrder";
 import { getAllEnrolledCourses } from "../../../api/CourseAPI";
 import { ProgressBar } from "react-bootstrap";
+import defineNumber from "../../utils/defineNumber";
 interface CoursePropsInterface {
   course: CourseModel;
 }
@@ -104,7 +105,7 @@ const CourseProps: React.FC<CoursePropsInterface> = (props) => {
         </div>
         <div className="price">
           <span className="price">
-            <strong>{props.course.price}</strong>
+            <strong>{defineNumber(props.course.price)}</strong>
           </span>
         </div>
         <hr />
