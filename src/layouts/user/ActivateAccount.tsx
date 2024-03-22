@@ -22,7 +22,7 @@ function ActivateAccount() {
     const Activate = async() => {
         
         try {
-            const url: string = `https://api.ani-testlab.edu.vn/account/activate?email=${email}&code=${code}`;
+            const url: string = `http://localhost:8888/account/activate?email=${email}&code=${code}`;
             const response = await fetch(url,  {method: "GET"} );
             console.log("Response: ", response);
             if(response.ok){

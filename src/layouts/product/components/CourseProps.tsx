@@ -105,7 +105,7 @@ const CourseProps: React.FC<CoursePropsInterface> = (props) => {
         </div>
         <div className="price">
           <span className="price">
-            <strong>{defineNumber(props.course.price)}</strong>
+            <strong>${defineNumber(props.course.price)} VNĐ</strong>
           </span>
         </div>
         <hr />

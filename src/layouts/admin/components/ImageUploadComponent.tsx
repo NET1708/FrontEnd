@@ -52,7 +52,7 @@ const ImageUploadComponent: React.FC<Props> = ({ onImageUpload, Chapter }) => {
       {/* Form text-area */}
       <Form.Group controlId="material">
         <Form.Label>Nội dung</Form.Label>
-        <Form.Control type="text" name="material" value={material} onChange={handleMaterialChange} />
+        <Form.Control type="text" name="material" value={material} onChange={handleMaterialChange} placeholder='Nhập link playlist của khóa học trên youtube'/>
       </Form.Group>
     </div>
   );

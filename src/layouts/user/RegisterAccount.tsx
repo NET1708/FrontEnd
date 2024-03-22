@@ -46,7 +46,7 @@ function RegisterAccount() {
         //Kiểm tra điều kiện
         if (isUsernameValid && isPasswordValid && isEmailValid && isFullnameValid && isPhoneValid) {
             //Gửi dữ liệu lên server
-            const url = "https://api.ani-testlab.edu.vn/account/register";
+            const url = "http://localhost:8888/account/register";
 
             //convert gender to char
 
@@ -88,7 +88,7 @@ function RegisterAccount() {
 
     //Kiểm tra username tồn tại
     const checkUsernameexists = async (username: string) => {
-        const url = `https://api.ani-testlab.edu.vn/user/search/existsByUsername?username=${username}`;
+        const url = `http://localhost:8888/user/search/existsByUsername?username=${username}`;
         try {
             const response = await fetch(url);
             if (!response.ok) {
@@ -118,7 +118,7 @@ function RegisterAccount() {
 
     //Kiểm tra password
     const checkEmailexists = async (email: string) => {
-        const url = `https://api.ani-testlab.edu.vn/user/search/existsByEmail?email=${email}`;
+        const url = `http://localhost:8888/user/search/existsByEmail?email=${email}`;
         try {
             const response = await fetch(url);
             if (!response.ok) {

@@ -98,9 +98,9 @@ const CourseDetail: React.FC = () => {
     const orderCode = localStorage.getItem('orderCode');
 
     const generateQRCodeData = async (course_amount: number, Info: string) => {
-        const accountNo = '0948190073';
-        const accountName = 'PHAM QUANG QUY PHUONG';
-        const acqId = 970422;
+        const accountNo = '0356855236';
+        const accountName = 'ĐẶNG XUÂN MÂY';
+        const acqId = 970423;
         const amount = course_amount;
         const addInfo = Info;
 
@@ -125,7 +125,7 @@ const CourseDetail: React.FC = () => {
         const pollOrderStatus = () => {
             const token = localStorage.getItem("token");
             const interval = setInterval(() => {
-                fetch(`https://api.ani-testlab.edu.vn/order/handle-payment?orderID=${orderCode}&courseID=${courseIdNumber}&token=${token}`, {
+                fetch(`http://localhost:8888/order/handle-payment?orderID=${orderCode}&courseID=${courseIdNumber}&token=${token}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -139,6 +139,15 @@ const CourseDetail: React.FC = () => {
                             setShow(false);
                             const orderCode = generateOrderCode();
                             localStorage.setItem('orderCode', orderCode);
+                            //fetch lại trang để cập nhật trạng thái đã tham gia khóa học
+                            getAllEnrolledCourses(localStorage.getItem("token")!)
+                                .then((data) => {
+                                    setListEnroll(data!);
+                                    setIsEnroll(data!.some((course) => course.courseId === courseIdNumber));
+                                })
+                                .catch((error) => {
+                                    console.error("Lỗi khi lấy danh sách khóa học đã tham gia:", error);
+                                });
                         }
                     })
                     .catch((error) => {
@@ -163,7 +172,7 @@ const CourseDetail: React.FC = () => {
                 clearInterval(pollingInterval);
             }
         };
-    }, [show, orderCode, courseIdNumber]);
+    }, [show, orderCode, courseIdNumber, isEnroll]);
 
     if (loading) {
         return (
@@ -326,7 +335,6 @@ const CourseDetail: React.FC = () => {
                             >
                                 <Tab eventKey="introduction" title="Giới thiệu">
                                     <div className="tabcontent h-100">
-                                        <h3>Giới thiệu khóa học</h3>
                                         <div
                                             dangerouslySetInnerHTML={{ __html: course.description! }}
                                         ></div>
@@ -386,9 +394,6 @@ const CourseDetail: React.FC = () => {
                                             </div>
                                             <RatingProduct courseId={courseIdNumber}/>
 
-                                        </div>
-                                        <div className="row mt-4 mb-4">
-                                            <StarRatingComponent courseId={course.courseId}/>
                                         </div>
                                     </div>
                                 </Tab>

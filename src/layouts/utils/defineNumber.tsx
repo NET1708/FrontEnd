@@ -1,4 +1,4 @@
-function defineNumber(x: number|undefined){
+export function defineNumber(x: number|undefined){
     if(x===undefined){
         return 0;
     }

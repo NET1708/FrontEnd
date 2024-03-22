@@ -5,6 +5,7 @@ import LoginPage from "../homepage/LoginPage";
 import { get } from "http";
 import { getAllCategories } from "../../api/CategoryAPI";
 import CategoryModel from "../../models/CategoryModel";
+import { jwtDecode } from "jwt-decode";
 
 interface NavbarInterface {
   searchKey: string;
@@ -136,67 +137,67 @@ function Navbar({ searchKey, setKey }: NavbarInterface) {
         </div>
 
         {/* Biểu tượng giỏ hàng */}
-        <ul className="navbar-nav me-1">
+        {/* <ul className="navbar-nav me-1">
           <li className="nav-item">
             <a className="nav-link" href="/cart">
               <i className="fas fa-shopping-cart"></i>
             </a>
           </li>
-        </ul>
+        </ul> */}
 
         {/* Biểu tượng đăng nhập */}
         {!token ? (
           <div className="dropdown">
-          <button
-            className="btn btn-secondary dropdown-toggle"
-            type="button"
-            id="dropdownMenuButton1"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <i className="fas fa-user"></i>
-          </button>
-          <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-            <li>
-              <a className="dropdown-item" href="/login">
-                Đăng nhập
-              </a>
-            </li>
-            <li>
-              <a className="dropdown-item" href="/register">
-                Đăng ký
-              </a>
-            </li>
-          </ul>
-        </div> 
+            <button
+              className="btn btn-secondary dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i className="fas fa-user"></i>
+            </button>
+            <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+              <li>
+                <a className="dropdown-item" href="/login">
+                  Đăng nhập
+                </a>
+              </li>
+              <li>
+                <a className="dropdown-item" href="/register">
+                  Đăng ký
+                </a>
+              </li>
+            </ul>
+          </div>
         ) : (
           <div className="dropdown">
-          <button
-            className="btn btn-secondary dropdown-toggle"
-            type="button"
-            id="dropdownMenuButton1"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <i className="fas fa-user"></i>
-          </button>
-          <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-            <li>
-              <a className="dropdown-item" href="/user-info" >
-                Hồ sơ
-              </a>
-            </li>
-            <li>
-              <a className="dropdown-item" href="/" onClick={handlelogout}>
-                Đăng xuất
-              </a>
-            </li>
-            <li>
-              <a className="dropdown-item" href="/change-password" >
-                Đổi mật khẩu
-              </a>
-            </li>
-          </ul>
+            <button
+              className="btn btn-secondary dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i className="fas fa-user"></i>
+            </button>
+            <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+              <li>
+                <a className="dropdown-item" href="/profile" >
+                  Hồ sơ
+                </a>
+              </li>
+              <li>
+                <a className="dropdown-item" href="/change-password" >
+                  Đổi mật khẩu
+                </a>
+              </li>
+              <li>
+                <a className="dropdown-item" href="/" onClick={handlelogout}>
+                  Đăng xuất
+                </a>
+              </li>
+            </ul>
           </div>
         )}
       </div>

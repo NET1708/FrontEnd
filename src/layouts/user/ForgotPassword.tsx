@@ -34,7 +34,7 @@ const ForgotPassword = () => {
 
     return (
         <Container>
-            <div className="border rounded p-4 mt-5">
+            <div className="border rounded p-4 mt-5 mx-auto" style={{ maxWidth: "500px" }}>
                 <h1 className="text-left mb-4">Quên mật khẩu</h1>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="formBasicEmail">
@@ -45,6 +45,7 @@ const ForgotPassword = () => {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
+                            className='mb-3 rounded-pill'
                         />
                     </Form.Group>
                     <Button variant="primary" type="submit" disabled={loading}>
