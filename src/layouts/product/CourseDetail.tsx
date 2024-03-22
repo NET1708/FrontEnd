@@ -265,9 +265,9 @@ const CourseDetail: React.FC = () => {
                                                             </div>
                                                             <div className="transfer-info">
                                                                 <h5 className="text-center mb-3">Hoặc chuyển khoản</h5>
-                                                                <p className="mb-1">Chủ tài khoản: PHAM QUANG QUY PHUONG</p>
-                                                                <p className="mb-1">Số tài khoản: 0948190073</p>
-                                                                <p className="mb-1">Ngân hàng: MB BANK</p>
+                                                                <p className="mb-1">Chủ tài khoản: DANG XUAN MAY</p>
+                                                                <p className="mb-1">Số tài khoản: 0356855236</p>
+                                                                <p className="mb-1">Ngân hàng: TP BANK</p>
                                                                 <p className="mb-1">Nội dung chuyển: {addInfo}</p>
                                                             </div>
                                                         </div>
@@ -285,9 +285,9 @@ const CourseDetail: React.FC = () => {
                                                             </div>
                                                             <div className="transfer-info">
                                                                 <h5 className="text-center mb-3 mt-4">Hoặc chuyển khoản</h5>
-                                                                <p className="mb-1">Chủ tài khoản: PHAM QUANG QUY PHUONG</p>
-                                                                <p className="mb-1">Số tài khoản: 0948190073</p>
-                                                                <p className="mb-1">Ngân hàng: MB BANK</p>
+                                                                <p className="mb-1">Chủ tài khoản: DANG XUAN MAY</p>
+                                                                <p className="mb-1">Số tài khoản: 0356855236</p>
+                                                                <p className="mb-1">Ngân hàng: TP BANK</p>
                                                                 <p className="mb-1">Nội dung chuyển: {addInfo}</p>
                                                             </div>
                                                         </div>

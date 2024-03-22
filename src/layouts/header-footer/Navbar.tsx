@@ -78,16 +78,6 @@ function Navbar({ searchKey, setKey }: NavbarInterface) {
               </NavLink>
             </li>
             <li className="nav-item dropdown">
-              <NavLink
-                className="nav-link dropdown-toggle"
-                to="#"
-                id="navbarDropdown1"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Thể loại
-              </NavLink>
               <ul className="dropdown-menu" aria-labelledby="navbarDropdown1">
                 {listCategory.map((category, index) => {
                   return (
