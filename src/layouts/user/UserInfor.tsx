@@ -31,7 +31,7 @@ const UserInfo: React.FC = () => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem("token") || "";
-        const url = "http://localhost:8888/account/profile";
+        const url = "https://api.ani-testlab.edu.vn/account/profile";
 
         const response = await fetch(url, {
           method: "GET",
@@ -63,7 +63,7 @@ const UserInfo: React.FC = () => {
     const getOrder = async () => {
       try {
         const token = localStorage.getItem("token") || "";
-        const url = "http://localhost:8888/order/get-cart";
+        const url = "https://api.ani-testlab.edu.vn/order/get-cart";
 
         const response = await fetch(url, {
           headers: {

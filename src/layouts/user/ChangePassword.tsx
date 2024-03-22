@@ -27,7 +27,7 @@ const ChangePassword: React.FC = () => {
         }
 
         // Gửi request đổi mật khẩu đến backend
-        const url = "http://localhost:8888/account/change-password";
+        const url = "https://api.ani-testlab.edu.vn/account/change-password";
         const data = {
             email: email,
             oldPassword: oldPassword,

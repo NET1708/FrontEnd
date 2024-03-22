@@ -36,7 +36,7 @@ export async function createRatingOfOneCourse(courseId: number, token : String ,
         course: { courseId: courseId },
     };
     const queryString = `?course_id=${courseId}&token=${token}`;
-    const endpoint: string = `http://localhost:8888/rate/create/Rate${queryString}`;
+    const endpoint: string = `https://api.ani-testlab.edu.vn/rate/create/Rate${queryString}`;
     const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
@@ -65,7 +65,7 @@ export async function getAllRatingOfOneCourse(courseId: number, ): Promise<Ratin
     const result: RatingCourseModel[] = [];
 
     //Detect endpoint
-    const endpoint:string = `http://localhost:8888/course/${courseId}/rates`;
+    const endpoint:string = `https://api.ani-testlab.edu.vn/course/${courseId}/rates`;
 
     return getRatingCourse(endpoint);
 }
@@ -74,7 +74,7 @@ export async function getOneRatingOfOneCourse(courseId: number): Promise<RatingC
     const result: RatingCourseModel[] = [];
 
     //Detect endpoint
-    const endpoint:string = `http://localhost:8888/course/${courseId}/rates?sort=rateId,asc&page=0&size=1`;
+    const endpoint:string = `https://api.ani-testlab.edu.vn/course/${courseId}/rates?sort=rateId,asc&page=0&size=1`;
 
     return getRatingCourse(endpoint);
 }
