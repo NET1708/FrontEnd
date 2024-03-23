@@ -98,9 +98,9 @@ const CourseDetail: React.FC = () => {
     const orderCode = localStorage.getItem('orderCode');
 
     const generateQRCodeData = async (course_amount: number, Info: string) => {
-        const accountNo = '0356855236';
-        const accountName = 'ĐẶNG XUÂN MÂY';
-        const acqId = 970423;
+        const accountNo = '0948190073'; // 0948190073 là số tài khoản của tài khoản ngân hàng
+        const accountName = 'PHAM QUANG QUY PHUONG'; // DANG XUAN MAY
+        const acqId = 970422; //970422 là mb bank 970423 tpbank
         const amount = course_amount;
         const addInfo = Info;
 
@@ -265,9 +265,9 @@ const CourseDetail: React.FC = () => {
                                                             </div>
                                                             <div className="transfer-info">
                                                                 <h5 className="text-center mb-3">Hoặc chuyển khoản</h5>
-                                                                <p className="mb-1">Chủ tài khoản: DANG XUAN MAY</p>
-                                                                <p className="mb-1">Số tài khoản: 0356855236</p>
-                                                                <p className="mb-1">Ngân hàng: TP BANK</p>
+                                                                <p className="mb-1">Chủ tài khoản: PHAM QUANG QUY PHUONG</p>
+                                                                <p className="mb-1">Số tài khoản: 0948190073</p>
+                                                                <p className="mb-1">Ngân hàng: MB BANK</p>
                                                                 <p className="mb-1">Nội dung chuyển: {addInfo}</p>
                                                             </div>
                                                         </div>
@@ -285,9 +285,9 @@ const CourseDetail: React.FC = () => {
                                                             </div>
                                                             <div className="transfer-info">
                                                                 <h5 className="text-center mb-3 mt-4">Hoặc chuyển khoản</h5>
-                                                                <p className="mb-1">Chủ tài khoản: DANG XUAN MAY</p>
-                                                                <p className="mb-1">Số tài khoản: 0356855236</p>
-                                                                <p className="mb-1">Ngân hàng: TP BANK</p>
+                                                                <p className="mb-1">Chủ tài khoản: PHAM QUANG QUY PHUONG</p>
+                                                                <p className="mb-1">Số tài khoản: 0948190073</p>
+                                                                <p className="mb-1">Ngân hàng: MB BANK</p>
                                                                 <p className="mb-1">Nội dung chuyển: {addInfo}</p>
                                                             </div>
                                                         </div>
