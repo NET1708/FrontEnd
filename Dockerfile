@@ -1,8 +1,8 @@
 # build stage
-FROM node:16-alpine as build-stage
+FROM node:16-alpine AS build
+
 WORKDIR /app
-RUN npm install --save-dev @babel/plugin-proposal-private-property-in-object
-COPY package*.json ./
-RUN npm install
+COPY package.json package-lock.json ./
+RUN npm install --prefer-offline
 COPY . .
 RUN npm run build
